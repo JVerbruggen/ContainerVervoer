@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ColdContainer.cs" />
+    <Compile Include="Enums\ContainerType.cs" />
     <Compile Include="Models\Container.cs" />
     <Compile Include="Models\IContainer.cs" />
     <Compile Include="Models\Row.cs" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ContainerLogic.Enums;
+using ContainerLogic.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ContainerVervoerLibrary;
 
 
 namespace ContainerVervoerWFA
@@ -24,7 +25,7 @@ namespace ContainerVervoerWFA
         private List<Button> containerStackButtons;
 
         private Stack shownStack;
-        private ContainerVervoerLibrary.IContainer shownContainer;
+        private ContainerLogic.Models.IContainer shownContainer;
 
         public ShipOverviewForm(Ship ship)
         {
@@ -37,7 +38,7 @@ namespace ContainerVervoerWFA
             maxX = Size.Width - 360;
             maxY = Size.Height - 120;
 
-            overviewTitleLabel.Text = ship.name;
+            overviewTitleLabel.Text = ship.Name;
 
             PlaceStackButtons(ship, buttons);
             UpdateWeightText();
@@ -50,17 +51,18 @@ namespace ContainerVervoerWFA
 
         private List<Button> InitStackButtons(List<Button> containerStackButtons)
         {
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                Button containerButton = new System.Windows.Forms.Button();
-                
-                containerButton.Enabled = false;
-                containerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                containerButton.Location = new System.Drawing.Point(6, 541 - (56 * i));
-                containerButton.Name = $"containerButton-{ i }";
-                containerButton.Size = new System.Drawing.Size(88, 52);
-                containerButton.TabIndex = 0;
-                containerButton.UseVisualStyleBackColor = true;
+                Button containerButton = new System.Windows.Forms.Button
+                {
+                    Enabled = false,
+                    Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                    Location = new System.Drawing.Point(6, 541 - (56 * i)),
+                    Name = $"containerButton-{ i }",
+                    Size = new System.Drawing.Size(88, 52),
+                    TabIndex = 0,
+                    UseVisualStyleBackColor = true
+                };
                 containerButton.Click += new System.EventHandler(containerButtonClick);
 
                 containerStackButtons.Add(containerButton);
@@ -71,18 +73,20 @@ namespace ContainerVervoerWFA
 
         private GroupBox InitStackButtonsGroupBox(List<Button> containerStackButtons)
         {
-            GroupBox stackProperties = new System.Windows.Forms.GroupBox();
+            GroupBox stackProperties = new System.Windows.Forms.GroupBox
+            {
+                Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Right))),
+                Location = new System.Drawing.Point(855, 10),
+                Name = "stackProperties",
+                Size = new System.Drawing.Size(100, 599),
+                Text = "Stack"
+            };
 
-            stackProperties.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            foreach(Button button in containerStackButtons)
+            foreach (Button button in containerStackButtons)
             {
                 stackProperties.Controls.Add(button);
             }
-            stackProperties.Location = new System.Drawing.Point(855, 10);
-            stackProperties.Name = "stackProperties";
-            stackProperties.Size = new System.Drawing.Size(100, 599);
-            stackProperties.Text = "Stack";
 
             Controls.Add(stackProperties);
 
@@ -93,19 +97,18 @@ namespace ContainerVervoerWFA
 
         public void containerButtonClick(object sender, EventArgs e)
         {
-            if(sender is Button)
+            if (sender is Button button)
             {
-                Button button = (Button)sender;
                 int id = int.Parse(button.Name.Split('-')[1]);
-                shownContainer = shownStack.GetContainers()[id];
-                loadEditContainerGroupBox(shownContainer.weight, shownContainer.valuable);
+                shownContainer = shownStack.Containers[id];
+                //loadEditContainerGroupBox(shownContainer.TotalWeight, shownContainer.Type);
 
             }
         }
 
         private void RemoveButtons(List<Button> buttons)
         {
-            foreach(Button button in buttons)
+            foreach (Button button in buttons)
             {
                 button.Dispose();
             }
@@ -114,13 +117,13 @@ namespace ContainerVervoerWFA
 
         private void UpdateWeightText()
         {
-            shipWeightLabel.Text = $"{ship.weight}/{ship.maxWeight} kg";
+            shipWeightLabel.Text = $"{ship.GetTotalWeight()}/{ship.MaxWeight} kg";
         }
 
         public void RefreshStackButtons(Ship ship, List<Button> buttons)
         {
-            int rows = ship.length;
-            int columns = ship.width;
+            int rows = ship.Length;
+            int columns = ship.Width;
 
             int rowUp = 0;
             int index = 0;
@@ -128,12 +131,13 @@ namespace ContainerVervoerWFA
             {
                 for (int j = 0; j < columns; j++) // up to down
                 {
-                    Stack thisStack = ship.GetStack(rowUp, j);
+                    //Stack thisStack = ship.GetStack(rowUp, j);
+                    Stack thisStack = ship.Rows[rowUp].Stacks[j];
 
                     Button button = buttons[index];
                     if (thisStack != null)
                     {
-                        button.Text = thisStack.weight + " kg";
+                        button.Text = thisStack.TotalWeight() + " kg";
                     }
                     else
                     {
@@ -151,8 +155,8 @@ namespace ContainerVervoerWFA
         {
             RemoveButtons(buttons);
 
-            int rows = ship.length;
-            int columns = ship.width;
+            int rows = ship.Length;
+            int columns = ship.Width;
 
             int dX = maxX - minX;
             int dY = maxY - minY;
@@ -162,30 +166,32 @@ namespace ContainerVervoerWFA
 
             int tabIndex = 5;
             int rowUp = 0;
-            for(int i = rows - 1; i >= 0; i--) // right to left
+            for (int i = rows - 1; i >= 0; i--) // right to left
             {
-                for(int j = 0; j < columns; j++) // up to down
+                for (int j = 0; j < columns; j++) // up to down
                 {
-                    Stack thisStack = ship.GetStack(rowUp, j);
+                    //Stack thisStack = ship.GetStack(rowUp, j);
+                    Stack thisStack = ship.Rows[rowUp].Stacks[j];
 
-                    Button button = new Button();
-                    button.Location = new Point((buttonWidth + 4) * i + minX, (buttonHeight + 4) * j + minY);
-                    button.Name = $"containerButton:{rowUp}-{j}";
-                    button.Size = new Size(buttonWidth, buttonHeight);
-
-                    if(thisStack != null)
+                    Button button = new Button
                     {
-                        button.Text = thisStack.weight + " kg";
+                        Location = new Point((buttonWidth + 4) * i + minX, (buttonHeight + 4) * j + minY),
+                        Name = $"containerButton:{rowUp}-{j}",
+                        Size = new Size(buttonWidth, buttonHeight),
+                        UseVisualStyleBackColor = true,
+                        TabIndex = tabIndex
+                    };
+                    button.Click += new EventHandler(stackButtonClick);
+
+                    if (thisStack != null)
+                    {
+                        button.Text = thisStack.TotalWeight() + " kg";
                     }
                     else
                     {
                         button.Text = "x0 kg";
                     }
-                    
-                    button.UseVisualStyleBackColor = true;
-                    button.Click += new EventHandler(stackButtonClick);
-                    button.TabIndex = tabIndex;
-                    button.UseVisualStyleBackColor = true;
+
                     buttons.Add(button);
 
                     Controls.Add(button);
@@ -221,21 +227,22 @@ namespace ContainerVervoerWFA
                 int x = int.Parse(stackCoords[0]);
                 int y = int.Parse(stackCoords[1]);
 
-                Stack stack = ship.GetStack(x, y);
+                //Stack stack = ship.GetStack(x, y);
+                Stack stack = ship.Rows[x].Stacks[y];
                 ShowStack(stack);
                 shownStack = stack;
             }
         }
 
-        private void UpdateContainerWeight(int weight)
-        {
-            shownContainer.weight = weight;
-        }
+        //private void UpdateContainerWeight(int weight)
+        //{
+        //    shownContainer.Weight = weight;
+        //}
 
-        private void UpdateContainerValuable(bool valuable)
-        {
-            shownContainer.valuable = valuable;
-        }
+        //private void UpdateContainerValuable(bool valuable)
+        //{
+        //    shownContainer.valuable = valuable;
+        //}
 
         private void backButton_Click(object sender, EventArgs e)
         {
@@ -249,7 +256,7 @@ namespace ContainerVervoerWFA
 
         private void ShowStack(Stack stack)
         {
-            if(stack != null)
+            if (stack != null)
             {
                 int minX = Size.Width - 120;
                 int maxX = Size.Width - 20;
@@ -259,24 +266,24 @@ namespace ContainerVervoerWFA
                 int buttonWidth = maxX - minX;
                 int buttonHeight = maxY - minY;
 
-                IReadOnlyList<ContainerVervoerLibrary.IContainer> baseContainers = stack.GetContainers();
+                IReadOnlyList<ContainerLogic.Models.IContainer> baseContainers = stack.Containers;
                 for (int i = 0; i < 10; i++)
                 {
                     Button containerButton = containerStackButtons[i];
                     if (i < baseContainers.Count)
                     {
-                        ContainerVervoerLibrary.IContainer baseContainer = baseContainers[i];
+                        ContainerLogic.Models.IContainer baseContainer = baseContainers[i];
                         containerButton.Enabled = true;
                         string valuableadd = "!";
-                        if (baseContainer.valuable)
+                        if (baseContainer.Type == ContainerType.Valuable)
                         {
                             valuableadd += "VAL ";
                         }
-                        if(baseContainer is CooledContainer)
+                        else if (baseContainer.Type == ContainerType.Cooled)
                         {
                             valuableadd += "CLD ";
                         }
-                        containerButton.Text = $"{valuableadd}{baseContainer.GetType().Name}\n{baseContainer.weight} kg";
+                        containerButton.Text = $"{valuableadd}{baseContainer.GetType().Name}\n{baseContainer.TotalWeight} kg";
                     }
                     else
                     {
@@ -291,21 +298,36 @@ namespace ContainerVervoerWFA
         {
             bool valuable = valuableCheckBox.Checked;
             bool cooled = cooledCheckBox.Checked;
-            int weight = (int) containerWeightNumeric.Value;
+            int weight = (int)containerWeightNumeric.Value;
 
-            BaseContainer container;
-            if (!cooled)
+            ContainerLogic.Models.IContainer container;
+            //if (!cooled)
+            //{
+            //    container = new DryContainer(ship.minContainerWeight, ship.maxContainerWeight, 120000, valuable);
+            //}
+            //else
+            //{
+            //    container = new CooledContainer(ship.minContainerWeight, ship.maxContainerWeight, 120000, valuable);
+            //}
+
+            ContainerType type;
+
+            if (cooled)
             {
-                container = new DryContainer(ship.minContainerWeight, ship.maxContainerWeight, 120000, valuable);
+                type = ContainerType.Cooled;
+            }
+            else if (valuable)
+            {
+                type = ContainerType.Valuable;
             }
             else
             {
-                container = new CooledContainer(ship.minContainerWeight, ship.maxContainerWeight, 120000, valuable);
+                type = ContainerType.Standard;
             }
 
-            container.weight = weight;
+            container = new ContainerLogic.Models.Container(weight, type);
 
-            bool loaded = ship.AddContainer(container);
+            bool loaded = ship.Add(container);
             if (!loaded)
             {
                 MessageBox.Show("This container can\'t be loaded on this ship");
@@ -314,7 +336,7 @@ namespace ContainerVervoerWFA
             {
                 //valuableCheckBox.Checked = false;
                 //containerWeightNumeric.Value = 30000;
-                ship.RefreshContainers();
+                ship.LoadAllContainers();
                 RefreshStackButtons(ship, buttons);
                 UpdateWeightText();
             }
@@ -358,22 +380,27 @@ namespace ContainerVervoerWFA
 
         private void editValuableCheckBox_AppearanceChanged(object sender, EventArgs e)
         {
-            if(sender is CheckBox)
-            {
-                CheckBox checkBox = (CheckBox)sender;
-                UpdateContainerValuable(checkBox.Checked);
-                RefreshShip();
-            }
+            //if (sender is CheckBox)
+            //{
+            //    CheckBox checkBox = (CheckBox)sender;
+            //    UpdateContainerValuable(checkBox.Checked);
+            //    RefreshShip();
+            //}
         }
 
         private void editContainerWeightNumeric_ValueChanged(object sender, EventArgs e)
         {
-            if (sender is NumericUpDown)
-            {
-                NumericUpDown numeric = (NumericUpDown)sender;
-                UpdateContainerWeight((int)numeric.Value);
-                RefreshShip();
-            }
+            //if (sender is NumericUpDown)
+            //{
+            //    NumericUpDown numeric = (NumericUpDown)sender;
+            //    UpdateContainerWeight((int)numeric.Value);
+            //    RefreshShip();
+            //}
+        }
+
+        private void containerWeightLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

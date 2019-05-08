@@ -30,6 +30,7 @@
         {
             this.backButton = new System.Windows.Forms.Button();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.cooledCheckBox = new System.Windows.Forms.CheckBox();
             this.valuableCheckBox = new System.Windows.Forms.CheckBox();
             this.addContainerButton = new System.Windows.Forms.Button();
             this.containerWeightLabel = new System.Windows.Forms.Label();
@@ -41,7 +42,7 @@
             this.editContainerGroupBox = new System.Windows.Forms.GroupBox();
             this.editContainerKgLabel = new System.Windows.Forms.Label();
             this.editContainerWeightNumeric = new System.Windows.Forms.NumericUpDown();
-            this.cooledCheckBox = new System.Windows.Forms.CheckBox();
+            this.loadKgLabel = new System.Windows.Forms.Label();
             this.propertiesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.containerWeightNumeric)).BeginInit();
             this.editContainerGroupBox.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             this.propertiesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertiesGroupBox.Controls.Add(this.loadKgLabel);
             this.propertiesGroupBox.Controls.Add(this.cooledCheckBox);
             this.propertiesGroupBox.Controls.Add(this.valuableCheckBox);
             this.propertiesGroupBox.Controls.Add(this.addContainerButton);
@@ -74,6 +76,16 @@
             this.propertiesGroupBox.TabIndex = 3;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Properties";
+            // 
+            // cooledCheckBox
+            // 
+            this.cooledCheckBox.AutoSize = true;
+            this.cooledCheckBox.Location = new System.Drawing.Point(352, 22);
+            this.cooledCheckBox.Name = "cooledCheckBox";
+            this.cooledCheckBox.Size = new System.Drawing.Size(74, 21);
+            this.cooledCheckBox.TabIndex = 4;
+            this.cooledCheckBox.Text = "Cooled";
+            this.cooledCheckBox.UseVisualStyleBackColor = true;
             // 
             // valuableCheckBox
             // 
@@ -100,11 +112,12 @@
             // containerWeightLabel
             // 
             this.containerWeightLabel.AutoSize = true;
-            this.containerWeightLabel.Location = new System.Drawing.Point(41, 23);
+            this.containerWeightLabel.Location = new System.Drawing.Point(44, 23);
             this.containerWeightLabel.Name = "containerWeightLabel";
-            this.containerWeightLabel.Size = new System.Drawing.Size(52, 17);
+            this.containerWeightLabel.Size = new System.Drawing.Size(40, 17);
             this.containerWeightLabel.TabIndex = 1;
-            this.containerWeightLabel.Text = "Weight";
+            this.containerWeightLabel.Text = "Load";
+            this.containerWeightLabel.Click += new System.EventHandler(this.containerWeightLabel_Click);
             // 
             // containerWeightNumeric
             // 
@@ -113,7 +126,7 @@
             0,
             0,
             0});
-            this.containerWeightNumeric.Location = new System.Drawing.Point(105, 21);
+            this.containerWeightNumeric.Location = new System.Drawing.Point(86, 22);
             this.containerWeightNumeric.Maximum = new decimal(new int[] {
             30000,
             0,
@@ -125,10 +138,10 @@
             0,
             0});
             this.containerWeightNumeric.Name = "containerWeightNumeric";
-            this.containerWeightNumeric.Size = new System.Drawing.Size(127, 22);
+            this.containerWeightNumeric.Size = new System.Drawing.Size(91, 22);
             this.containerWeightNumeric.TabIndex = 0;
             this.containerWeightNumeric.Value = new decimal(new int[] {
-            10000,
+            6000,
             0,
             0,
             0});
@@ -225,15 +238,14 @@
             0});
             this.editContainerWeightNumeric.ValueChanged += new System.EventHandler(this.editContainerWeightNumeric_ValueChanged);
             // 
-            // cooledCheckBox
+            // loadKgLabel
             // 
-            this.cooledCheckBox.AutoSize = true;
-            this.cooledCheckBox.Location = new System.Drawing.Point(352, 22);
-            this.cooledCheckBox.Name = "cooledCheckBox";
-            this.cooledCheckBox.Size = new System.Drawing.Size(74, 21);
-            this.cooledCheckBox.TabIndex = 4;
-            this.cooledCheckBox.Text = "Cooled";
-            this.cooledCheckBox.UseVisualStyleBackColor = true;
+            this.loadKgLabel.AutoSize = true;
+            this.loadKgLabel.Location = new System.Drawing.Point(181, 23);
+            this.loadKgLabel.Name = "loadKgLabel";
+            this.loadKgLabel.Size = new System.Drawing.Size(23, 17);
+            this.loadKgLabel.TabIndex = 5;
+            this.loadKgLabel.Text = "kg";
             // 
             // ShipOverviewForm
             // 
@@ -277,5 +289,6 @@
         private System.Windows.Forms.NumericUpDown editContainerWeightNumeric;
         private System.Windows.Forms.Label editContainerKgLabel;
         private System.Windows.Forms.CheckBox cooledCheckBox;
+        private System.Windows.Forms.Label loadKgLabel;
     }
 }

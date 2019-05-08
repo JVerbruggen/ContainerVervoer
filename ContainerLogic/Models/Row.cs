@@ -20,8 +20,8 @@ namespace ContainerLogic.Models
 
         private void Load(int length)
         {
-            pivot = GetPivotIndex();
             stacks = GetNewStacks(length);
+            pivot = GetPivotIndex();
         }
 
         private List<Stack> GetNewStacks(int length)
@@ -35,6 +35,14 @@ namespace ContainerLogic.Models
             }
 
             return stacks;
+        }
+
+        public void Reset()
+        {
+            foreach(Stack s in stacks)
+            {
+                s.Reset();
+            }
         }
 
         public int TotalWeight()
@@ -86,7 +94,18 @@ namespace ContainerLogic.Models
                 leftWeight += s.TotalWeight();
             }
 
-            return (double)leftWeight / TotalWeight() * -2 + 1;
+            int rowWeight = TotalWeight();
+            double distribution;
+            if (rowWeight != 0)
+            {
+                distribution = (double)leftWeight / rowWeight * 2 - 1;
+            }
+            else
+            {
+                distribution = 0;
+            }
+
+            return distribution;
         }
 
         public Stack GetNextStack(double weightDistribution, IContainer toHold)
@@ -108,7 +127,7 @@ namespace ContainerLogic.Models
         private Stack GetNextStackEven(double weightDistribution, IContainer toHold)
         {
             Stack stack = null;
-            if (weightDistribution < 0)
+            if (weightDistribution >= 0)
             {
                 for (int i = 0; i < pivot; i++)
                 {
@@ -150,9 +169,9 @@ namespace ContainerLogic.Models
         private Stack GetNextStackUneven(double weightDistribution, IContainer toHold)
         {
             Stack stack = null;
-            if (weightDistribution < 0)
+            if (weightDistribution > 0)
             {
-                for (int i = 0; i <= pivot; i++) // the i<=pivot is the only different thing from the even method (dry????)
+                for (int i = 0; i < pivot; i++) // the i<=pivot is the only different thing from the even method (dry????)
                 {
                     Stack s = stacks[i]; // SAME (dry???)
                     if (s.CanHoldWeight(toHold))

@@ -9,6 +9,7 @@ namespace ContainerLogic.Models
     public class Stack
     {
         private List<IContainer> containers;
+        public IReadOnlyList<IContainer> Containers => containers;
 
         public Stack()
         {
@@ -41,6 +42,11 @@ namespace ContainerLogic.Models
         public void Add(IContainer container)
         {
             containers.Add(container);
+        }
+
+        public void Reset()
+        {
+            containers.Clear();
         }
 
         public int TotalWeight()

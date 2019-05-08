@@ -10,21 +10,27 @@ namespace ContainerLogic.Models
         private List<IContainer> containers;
         private int pivot;
 
-        public int MaxWeight { get; private set; }
+        public IReadOnlyList<Row> Rows => rows;
+        public IReadOnlyList<IContainer> Containers => containers;
 
-        public Ship(int length, int width, int maxWeight, List<IContainer> containers)
+        public string Name { get; private set; }
+        public int MaxWeight { get; private set; }
+        public int Length { get; private set; }
+        public int Width { get; private set; }
+
+        public Ship(string name, int length, int width, int maxWeight, List<IContainer> containers)
         {
             this.containers = containers;
 
-            Init(length, width, maxWeight);
+            Init(name, length, width, maxWeight);
         }
 
-        public Ship(int length, int width, int maxWeight)
+        public Ship(string name, int length, int width, int maxWeight)
         {
-            Init(length, width, maxWeight);
+            Init(name, length, width, maxWeight);
         }
 
-        private int GetTotalWeight()
+        public int GetTotalWeight()
         {
             int totalWeight = 0;
             foreach (IContainer c in containers)
@@ -97,33 +103,63 @@ namespace ContainerLogic.Models
             return row;
         }
 
-        public void Init(int length, int width, int maxWeight)
+        public void Init(string name, int length, int width, int maxWeight)
         {
             MaxWeight = maxWeight;
+            Length = length;
+            Width = width;
+            Name = name;
 
-            LoadAllContainers(length, width);
+            rows = GetNewRows(length, width);
+            containers = new List<IContainer>();
+
+            LoadAllContainers();
         }
 
-        public bool LoadAllContainers(int length, int width)
+        public bool Add(IContainer container)
+        {
+            bool added = false;
+
+            if (CanAddWeight(container))
+            {
+                containers.Add(container);
+                added = true;
+            }
+
+            return added;
+        }
+
+        public void Reset()
+        {
+            foreach (Row r in rows)
+            {
+                r.Reset();
+            }
+        }
+
+        public bool LoadAllContainers()
         {
             bool loaded = true;
-            rows = GetNewRows(length, width);
+            Reset();
             pivot = GetPivotIndex();
 
-            for (int i = 0; i < containers.Count && loaded; i++)
+            if (containers != null)
             {
-                IContainer c = containers[i];
+                for (int i = 0; i < containers.Count && loaded; i++)
+                {
+                    IContainer c = containers[i];
 
-                Row row = GetNextRow();
-                double weightDistribution = GetWeightDistribution();
-                Stack stack = row.GetNextStack(weightDistribution, c);
-                if (stack != null)
-                {
-                    stack.Add(c);
-                }
-                else
-                {
-                    loaded = false;
+                    Row row = GetNextRow();
+                    double weightDistribution = GetWeightDistribution();
+                    Stack stack = row.GetNextStack(weightDistribution, c);
+                    if (stack != null)
+                    {
+                        stack.Add(c);
+                    }
+                    else
+                    {
+                        loaded = false;
+                    }
                 }
             }
 

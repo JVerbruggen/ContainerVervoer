@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ContainerLogic.Enums;
 
 namespace ContainerLogic.Models
 {
@@ -13,13 +9,15 @@ namespace ContainerLogic.Models
         public int MaxHoldWeight { get; }
         public int LoadWeight { get; }
         public int TotalWeight { get => EmptyWeight + LoadWeight; }
+        public ContainerType Type { get; }
 
-        public Container(int loadWeight)
+        public Container(int loadWeight, ContainerType type)
         {
             LoadWeight = loadWeight;
             EmptyWeight = 4000;
             MaxWeight = 30000;
             MaxHoldWeight = 120000;
+            Type = type;
         }
     }
 }

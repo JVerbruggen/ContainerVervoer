@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ContainerVervoerLibrary;
+using ContainerLogic;
+using ContainerLogic.Models;
 
 namespace ContainerVervoerWFA
 {
     public partial class HarbourForm : Form
     {
-        private Harbour harbour;
+        private ShipRepository repository;
 
         public HarbourForm()
         {
             InitializeComponent();
-            harbour = new Harbour();
+            repository = new ShipRepository();
         }
 
         private Ship NewShip()
@@ -36,12 +37,12 @@ namespace ContainerVervoerWFA
             Ship ship;
             if(selected == -1)
             {
-                ship = new Ship("testShip", 5, 5, 500000);
+                ship = repository.NewShip("testShip", 5, 5, 500000);
                 AddShip(ship);
             }
             else
             {
-                ship = harbour.GetShip(selected);
+                ship = repository.Ships[selected];
             }
             ShipOverviewForm shipOverviewForm = new ShipOverviewForm(ship);
             shipOverviewForm.ShowDialog();
@@ -49,13 +50,13 @@ namespace ContainerVervoerWFA
 
         private void AddShip(Ship ship)
         {
-            harbour.AddShip(ship);
+            repository.AddShip(ship);
             AddShipVisually(ship);
         }
 
         private void AddShipVisually(Ship ship)
         {
-            shipBox.Items.Add($"{ship.name} ({ship.width}x{ship.length}, {ship.maxWeight} ton)");
+            shipBox.Items.Add($"{ship.Name} ({ship.Width}x{ship.Length}, {ship.MaxWeight} ton)");
         }
 
         private void addNewButton_Click(object sender, EventArgs e)
