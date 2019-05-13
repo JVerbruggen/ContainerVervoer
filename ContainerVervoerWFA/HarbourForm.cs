@@ -31,7 +31,7 @@ namespace ContainerVervoerWFA
             return ship;
         }
 
-        private void selectButton_Click(object sender, EventArgs e)
+        private void SelectButton_Click(object sender, EventArgs e)
         {
             int selected = shipBox.SelectedIndex;
             Ship ship;
@@ -59,7 +59,7 @@ namespace ContainerVervoerWFA
             shipBox.Items.Add($"{ship.Name} ({ship.Width}x{ship.Length}, {ship.MaxWeight} ton)");
         }
 
-        private void addNewButton_Click(object sender, EventArgs e)
+        private void AddNewButton_Click(object sender, EventArgs e)
         {
             Ship ship = NewShip();
 

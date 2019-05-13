@@ -78,6 +78,35 @@ namespace ContainerLogic.Models
             return pivot;
         }
 
+        private int GetRightWeight()
+        {
+            int rightWeight = 0;
+            int stacksCount = Stacks.Count;
+
+            if (stacksCount % 2 == 0) // Is even
+            {
+                for (int i = pivot; i < pivot; i++)
+                {
+                    Stack s = stacks[i];
+                    int j = i + 1;
+
+                    rightWeight += s.TotalWeight();
+                }
+            }
+            else
+            {
+                for (int i = pivot + 1; i < stacksCount; i++)
+                {
+                    Stack s = stacks[i];
+                    int j = i + 1;
+
+                    rightWeight += s.TotalWeight();
+                }
+            }
+
+            return rightWeight;
+        }
+
         /// <summary>
         /// Get the distribution of weight on a row
         /// A very inefficient and stupid solution
@@ -94,18 +123,24 @@ namespace ContainerLogic.Models
                 leftWeight += s.TotalWeight();
             }
 
-            int rowWeight = TotalWeight();
-            double distribution;
-            if (rowWeight != 0)
-            {
-                distribution = (double)leftWeight / rowWeight * 2 - 1;
-            }
-            else
-            {
-                distribution = 0;
-            }
+            int rightWeight = GetRightWeight();
 
-            return distribution;
+            int leftRightWeight = leftWeight + rightWeight;
+
+            //int rowWeight = TotalWeight();
+            //double distribution;
+            //if (leftRightWeight != 0)
+            //{
+            //    distribution = (double)leftWeight / (double) leftRightWeight * 2 - 1;
+            //}
+            //else
+            //{
+            //    distribution = 0;
+            //}
+
+            //distribution = Double.Parse(distribution.ToString("0.000000"));
+
+            return leftWeight - rightWeight;
         }
 
         public Stack GetNextStack(double weightDistribution, IContainer toHold)
@@ -169,9 +204,9 @@ namespace ContainerLogic.Models
         private Stack GetNextStackUneven(double weightDistribution, IContainer toHold)
         {
             Stack stack = null;
-            if (weightDistribution > 0)
+            if (weightDistribution < 0)
             {
-                for (int i = 0; i < pivot; i++) // the i<=pivot is the only different thing from the even method (dry????)
+                for (int i = pivot; i >= 0; i--) // the i<=pivot is the only different thing from the even method (dry????)
                 {
                     Stack s = stacks[i]; // SAME (dry???)
                     if (s.CanHoldWeight(toHold))

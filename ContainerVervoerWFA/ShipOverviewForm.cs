@@ -1,4 +1,4 @@
-﻿using ContainerLogic.Enums;
+﻿using ContainerLogic;
 using ContainerLogic.Models;
 using System;
 using System.Collections.Generic;
@@ -63,7 +63,7 @@ namespace ContainerVervoerWFA
                     TabIndex = 0,
                     UseVisualStyleBackColor = true
                 };
-                containerButton.Click += new System.EventHandler(containerButtonClick);
+                containerButton.Click += new System.EventHandler(ContainerButtonClick);
 
                 containerStackButtons.Add(containerButton);
             }
@@ -95,7 +95,7 @@ namespace ContainerVervoerWFA
             return stackProperties;
         }
 
-        public void containerButtonClick(object sender, EventArgs e)
+        public void ContainerButtonClick(object sender, EventArgs e)
         {
             if (sender is Button button)
             {
@@ -144,11 +144,30 @@ namespace ContainerVervoerWFA
                         button.Text = "x0 kg";
                     }
 
+                    if(thisStack.TotalWeight() > 0)
+                    {
+                        double colorIntensity = (double) thisStack.TotalWeight() / 150000;
+                        button.BackColor = ColorRepository.Blend(Color.Red, SystemColors.ControlLight, colorIntensity);
+                    }
+
                     index++;
                 }
 
                 rowUp++;
             }
+
+            voorkantLabel.Text = "" + ship.GetWeightDistribution();
+
+            string rowWeights = "";
+
+            for(int i = ship.Rows.Count - 1; i >= 0; i--)
+            {
+                Row row = ship.Rows[i];
+                rowWeights += row.GetWeightDistribution() + " ";
+            }
+
+            achterkantLabel.Text = rowWeights;
+
         }
 
         public void PlaceStackButtons(Ship ship, List<Button> buttons)
@@ -181,7 +200,7 @@ namespace ContainerVervoerWFA
                         UseVisualStyleBackColor = true,
                         TabIndex = tabIndex
                     };
-                    button.Click += new EventHandler(stackButtonClick);
+                    button.Click += new EventHandler(StackButtonClick);
 
                     if (thisStack != null)
                     {
@@ -202,23 +221,23 @@ namespace ContainerVervoerWFA
             }
         }
 
-        private void loadEditContainerGroupBox(int weight, bool valuable)
+        private void LoadEditContainerGroupBox(int weight, bool valuable)
         {
             editContainerWeightNumeric.Value = weight;
             editContainerGroupBox.Enabled = true;
         }
 
-        private void unloadEditContainerGroupBox()
+        private void UnloadEditContainerGroupBox()
         {
             editContainerWeightNumeric.Value = 10000;
             editContainerGroupBox.Enabled = false;
         }
 
-        private void stackButtonClick(object sender, EventArgs e)
+        private void StackButtonClick(object sender, EventArgs e)
         {
             if (sender is Button)
             {
-                unloadEditContainerGroupBox();
+                UnloadEditContainerGroupBox();
 
                 Button button = (Button)sender;
                 string stackLocation = button.Name.Split(':')[1];
@@ -244,7 +263,7 @@ namespace ContainerVervoerWFA
         //    shownContainer.valuable = valuable;
         //}
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -275,11 +294,11 @@ namespace ContainerVervoerWFA
                         ContainerLogic.Models.IContainer baseContainer = baseContainers[i];
                         containerButton.Enabled = true;
                         string valuableadd = "!";
-                        if (baseContainer.Type == ContainerType.Valuable)
+                        if (baseContainer is ValuableContainer)
                         {
                             valuableadd += "VAL ";
                         }
-                        else if (baseContainer.Type == ContainerType.Cooled)
+                        else if (baseContainer is CooledContainer)
                         {
                             valuableadd += "CLD ";
                         }
@@ -294,13 +313,12 @@ namespace ContainerVervoerWFA
             }
         }
 
-        private void addContainerButton_Click(object sender, EventArgs e)
+        private void AddContainerButton_Click(object sender, EventArgs e)
         {
             bool valuable = valuableCheckBox.Checked;
             bool cooled = cooledCheckBox.Checked;
             int weight = (int)containerWeightNumeric.Value;
 
-            ContainerLogic.Models.IContainer container;
             //if (!cooled)
             //{
             //    container = new DryContainer(ship.minContainerWeight, ship.maxContainerWeight, 120000, valuable);
@@ -310,22 +328,20 @@ namespace ContainerVervoerWFA
             //    container = new CooledContainer(ship.minContainerWeight, ship.maxContainerWeight, 120000, valuable);
             //}
 
-            ContainerType type;
+            ContainerLogic.Models.IContainer container;
 
             if (cooled)
             {
-                type = ContainerType.Cooled;
+                container = new CooledContainer(weight);
             }
             else if (valuable)
             {
-                type = ContainerType.Valuable;
+                container = new ValuableContainer(weight);
             }
             else
             {
-                type = ContainerType.Standard;
+                container = new ContainerLogic.Models.Container(weight);
             }
-
-            container = new ContainerLogic.Models.Container(weight, type);
 
             bool loaded = ship.Add(container);
             if (!loaded)
@@ -342,43 +358,13 @@ namespace ContainerVervoerWFA
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void containersGroupBox_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void shipWeightLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void RefreshShip()
         {
             RefreshStackButtons(ship, buttons);
             ShowStack(shownStack);
         }
 
-        private void editValuableCheckBox_AppearanceChanged(object sender, EventArgs e)
+        private void EditValuableCheckBox_AppearanceChanged(object sender, EventArgs e)
         {
             //if (sender is CheckBox)
             //{
@@ -388,7 +374,7 @@ namespace ContainerVervoerWFA
             //}
         }
 
-        private void editContainerWeightNumeric_ValueChanged(object sender, EventArgs e)
+        private void EditContainerWeightNumeric_ValueChanged(object sender, EventArgs e)
         {
             //if (sender is NumericUpDown)
             //{
@@ -396,11 +382,6 @@ namespace ContainerVervoerWFA
             //    UpdateContainerWeight((int)numeric.Value);
             //    RefreshShip();
             //}
-        }
-
-        private void containerWeightLabel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

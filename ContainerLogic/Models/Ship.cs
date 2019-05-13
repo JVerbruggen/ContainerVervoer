@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -66,9 +67,23 @@ namespace ContainerLogic.Models
         /// A very inefficient and stupid solution
         /// </summary>
         /// <returns>A number between -1 and 1, -1 being left, 1 being right</returns>
-        private double GetWeightDistribution()
+        public double GetWeightDistribution()
         {
-            double weightDistribution = rows[0].GetWeightDistribution();
+            double weightDistribution = 0;
+
+            if (rows.Count > 0)
+            {
+                int count = 0;
+                foreach (Row row in rows)
+                {
+                    weightDistribution += row.GetWeightDistribution();
+                    count++;
+                }
+
+                weightDistribution /= count;
+            }
+
+            
             return weightDistribution;
         }
 
@@ -86,7 +101,7 @@ namespace ContainerLogic.Models
             return newRows;
         }
 
-        private Row GetNextRow()
+        public Row GetNextRow()
         {
             Row row = null;
             foreach (Row r in rows)
@@ -120,7 +135,7 @@ namespace ContainerLogic.Models
         {
             bool added = false;
 
-            if (CanAddWeight(container))
+            if (CanAddWeight(container)) // Add check if can add cooled and valuable, not only weight
             {
                 containers.Add(container);
                 added = true;
@@ -137,10 +152,61 @@ namespace ContainerLogic.Models
             }
         }
 
+        private void SortToBeginning<T>(IList<IContainer> list)
+        {
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                IContainer container = list[i];
+                if (container is T)
+                {
+                    bool swapped = false;
+                    for (int j = 0; j < i && !swapped; j++)
+                    {
+                        IContainer c = list[j];
+                        if (!(c is T))
+                        {
+                            list[i] = c;
+                            list[j] = container;
+                            swapped = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SortToEnd<T>(IList<IContainer> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                IContainer container = list[i];
+                if (container is T)
+                {
+                    bool swapped = false;
+                    for (int j = list.Count - 1; j > i && !swapped; j--)
+                    {
+                        IContainer c = list[j];
+                        if (!(c is T))
+                        {
+                            list[i] = c;
+                            list[j] = container;
+                            swapped = true;
+                        }
+                    }
+                }
+            } 
+        }
+
+        public void Sort()
+        {
+            SortToBeginning<CooledContainer>(containers);
+            SortToEnd<ValuableContainer>(containers);
+        }
+
         public bool LoadAllContainers()
         {
             bool loaded = true;
             Reset();
+            Sort();
             pivot = GetPivotIndex();
 
             if (containers != null)
@@ -149,9 +215,17 @@ namespace ContainerLogic.Models
                 {
                     IContainer c = containers[i];
 
-                    Row row = GetNextRow();
-                    double weightDistribution = GetWeightDistribution();
-                    Stack stack = row.GetNextStack(weightDistribution, c);
+                    //Row row = GetNextRow();
+                    //double weightDistribution = GetWeightDistribution();
+                    //if(i > 5 && i == containers.Count - 1)
+                    //{
+                    //    int j = i;
+                    //}
+
+                    //Stack stack = row.GetNextStack(weightDistribution, c);
+
+                    Stack stack = c.GetPosition(this);
+
                     if (stack != null)
                     {
                         stack.Add(c);

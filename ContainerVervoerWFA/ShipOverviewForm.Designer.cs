@@ -30,6 +30,7 @@
         {
             this.backButton = new System.Windows.Forms.Button();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.loadKgLabel = new System.Windows.Forms.Label();
             this.cooledCheckBox = new System.Windows.Forms.CheckBox();
             this.valuableCheckBox = new System.Windows.Forms.CheckBox();
             this.addContainerButton = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@
             this.editContainerGroupBox = new System.Windows.Forms.GroupBox();
             this.editContainerKgLabel = new System.Windows.Forms.Label();
             this.editContainerWeightNumeric = new System.Windows.Forms.NumericUpDown();
-            this.loadKgLabel = new System.Windows.Forms.Label();
             this.propertiesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.containerWeightNumeric)).BeginInit();
             this.editContainerGroupBox.SuspendLayout();
@@ -58,7 +58,7 @@
             this.backButton.TabIndex = 2;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // propertiesGroupBox
             // 
@@ -76,6 +76,15 @@
             this.propertiesGroupBox.TabIndex = 3;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Properties";
+            // 
+            // loadKgLabel
+            // 
+            this.loadKgLabel.AutoSize = true;
+            this.loadKgLabel.Location = new System.Drawing.Point(181, 23);
+            this.loadKgLabel.Name = "loadKgLabel";
+            this.loadKgLabel.Size = new System.Drawing.Size(23, 17);
+            this.loadKgLabel.TabIndex = 5;
+            this.loadKgLabel.Text = "kg";
             // 
             // cooledCheckBox
             // 
@@ -107,7 +116,7 @@
             this.addContainerButton.TabIndex = 2;
             this.addContainerButton.Text = "Add";
             this.addContainerButton.UseVisualStyleBackColor = true;
-            this.addContainerButton.Click += new System.EventHandler(this.addContainerButton_Click);
+            this.addContainerButton.Click += new System.EventHandler(this.AddContainerButton_Click);
             // 
             // containerWeightLabel
             // 
@@ -117,7 +126,6 @@
             this.containerWeightLabel.Size = new System.Drawing.Size(40, 17);
             this.containerWeightLabel.TabIndex = 1;
             this.containerWeightLabel.Text = "Load";
-            this.containerWeightLabel.Click += new System.EventHandler(this.containerWeightLabel_Click);
             // 
             // containerWeightNumeric
             // 
@@ -164,7 +172,6 @@
             this.shipWeightLabel.TabIndex = 6;
             this.shipWeightLabel.Text = "[]";
             this.shipWeightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.shipWeightLabel.Click += new System.EventHandler(this.shipWeightLabel_Click);
             // 
             // voorkantLabel
             // 
@@ -199,7 +206,6 @@
             this.editContainerGroupBox.TabIndex = 9;
             this.editContainerGroupBox.TabStop = false;
             this.editContainerGroupBox.Text = "Container";
-            this.editContainerGroupBox.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // editContainerKgLabel
             // 
@@ -236,16 +242,7 @@
             0,
             0,
             0});
-            this.editContainerWeightNumeric.ValueChanged += new System.EventHandler(this.editContainerWeightNumeric_ValueChanged);
-            // 
-            // loadKgLabel
-            // 
-            this.loadKgLabel.AutoSize = true;
-            this.loadKgLabel.Location = new System.Drawing.Point(181, 23);
-            this.loadKgLabel.Name = "loadKgLabel";
-            this.loadKgLabel.Size = new System.Drawing.Size(23, 17);
-            this.loadKgLabel.TabIndex = 5;
-            this.loadKgLabel.Text = "kg";
+            this.editContainerWeightNumeric.ValueChanged += new System.EventHandler(this.EditContainerWeightNumeric_ValueChanged);
             // 
             // ShipOverviewForm
             // 

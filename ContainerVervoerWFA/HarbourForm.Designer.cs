@@ -72,7 +72,7 @@
             this.addNewButton.TabIndex = 3;
             this.addNewButton.Text = "Add";
             this.addNewButton.UseVisualStyleBackColor = true;
-            this.addNewButton.Click += new System.EventHandler(this.addNewButton_Click);
+            this.addNewButton.Click += new System.EventHandler(this.AddNewButton_Click);
             // 
             // shipBox
             // 
@@ -94,7 +94,7 @@
             this.selectButton.TabIndex = 1;
             this.selectButton.Text = "Select";
             this.selectButton.UseVisualStyleBackColor = true;
-            this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
+            this.selectButton.Click += new System.EventHandler(this.SelectButton_Click);
             // 
             // HarbourForm
             // 

@@ -26,14 +26,16 @@ namespace ContainerLogic.Models
             {
                 IContainer c = containers[i];
 
-                if(shouldHold <= c.MaxHoldWeight)
-                {
-                    shouldHold += c.TotalWeight;
-                }
-                else
-                {
-                    canHoldWeight = false;
-                }
+                //if(shouldHold <= c.MaxHoldWeight)
+                //{
+                //    shouldHold += c.TotalWeight;
+                //}
+                //else
+                //{
+                //    canHoldWeight = false;
+                //}
+
+                canHoldWeight = c.CanHoldWeight(shouldHold);
             }
 
             return canHoldWeight;

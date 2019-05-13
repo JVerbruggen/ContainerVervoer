@@ -1,6 +1,4 @@
-﻿using ContainerLogic.Enums;
-
-namespace ContainerLogic.Models
+﻿namespace ContainerLogic.Models
 {
     public interface IContainer
     {
@@ -9,6 +7,7 @@ namespace ContainerLogic.Models
         int MaxHoldWeight { get; }
         int MaxWeight { get; }
         int TotalWeight { get; }
-        ContainerType Type { get; }
+        Stack GetPosition(Ship ship);
+        bool CanHoldWeight(int weight);
     }
 }
