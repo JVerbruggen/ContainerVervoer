@@ -26,7 +26,7 @@ namespace ContainerVervoerWFA
         {
             NewShip newShip = new NewShip();
             newShip.ShowDialog();
-            Ship ship = newShip.ship;
+            Ship ship = newShip.Ship;
 
             return ship;
         }
@@ -56,7 +56,7 @@ namespace ContainerVervoerWFA
 
         private void AddShipVisually(Ship ship)
         {
-            shipBox.Items.Add($"{ship.Name} ({ship.Width}x{ship.Length}, {ship.MaxWeight} ton)");
+            shipBox.Items.Add($"{ship.Name} ({ship.Width}x{ship.Length}, {ship.MaxWeight} kg)");
         }
 
         private void AddNewButton_Click(object sender, EventArgs e)

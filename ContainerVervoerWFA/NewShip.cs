@@ -13,12 +13,12 @@ namespace ContainerVervoerWFA
 {
     partial class NewShip : Form
     {
-        public Ship ship { get; private set; }
+        public Ship Ship { get; private set; }
 
         public NewShip()
         {
             InitializeComponent();
-            ship = null;
+            Ship = null;
         }
 
         private bool ValidateInputs()
@@ -34,7 +34,7 @@ namespace ContainerVervoerWFA
             return validated;
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs())
             {
@@ -47,13 +47,13 @@ namespace ContainerVervoerWFA
                 int rowsPerShip = (int)rowsPerShipNumeric.Value;
                 int maximumWeight = (int)maximumWeightNumeric.Value * 1000;
 
-                ship = new Ship(name, stacksPerRow, rowsPerShip, maximumWeight);
+                Ship = new Ship(name, stacksPerRow, rowsPerShip, maximumWeight);
 
                 this.Close();
             }
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

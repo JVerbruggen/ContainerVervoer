@@ -149,6 +149,10 @@ namespace ContainerVervoerWFA
                         double colorIntensity = (double) thisStack.TotalWeight() / 150000;
                         button.BackColor = ColorRepository.Blend(Color.Red, SystemColors.ControlLight, colorIntensity);
                     }
+                    else
+                    {
+                        button.BackColor = SystemColors.ControlLight;
+                    }
 
                     index++;
                 }

@@ -30,20 +30,20 @@
         {
             this.nameLabel = new System.Windows.Forms.Label();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.tonsLabel = new System.Windows.Forms.Label();
+            this.maximumWeightNumeric = new System.Windows.Forms.NumericUpDown();
+            this.maximumWeightLabel = new System.Windows.Forms.Label();
+            this.rowsPerShipLabel = new System.Windows.Forms.Label();
+            this.stacksPerRowLabel = new System.Windows.Forms.Label();
+            this.rowsPerShipNumeric = new System.Windows.Forms.NumericUpDown();
+            this.stacksPerRowNumeric = new System.Windows.Forms.NumericUpDown();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.addButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.nameTextBox = new System.Windows.Forms.TextBox();
-            this.stacksPerRowNumeric = new System.Windows.Forms.NumericUpDown();
-            this.rowsPerShipNumeric = new System.Windows.Forms.NumericUpDown();
-            this.stacksPerRowLabel = new System.Windows.Forms.Label();
-            this.rowsPerShipLabel = new System.Windows.Forms.Label();
-            this.maximumWeightLabel = new System.Windows.Forms.Label();
-            this.maximumWeightNumeric = new System.Windows.Forms.NumericUpDown();
-            this.tonsLabel = new System.Windows.Forms.Label();
             this.propertiesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stacksPerRowNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rowsPerShipNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximumWeightNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rowsPerShipNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stacksPerRowNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -76,57 +76,69 @@
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Properties";
             // 
-            // addButton
+            // tonsLabel
             // 
-            this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.addButton.Location = new System.Drawing.Point(114, 176);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(242, 35);
-            this.addButton.TabIndex = 2;
-            this.addButton.Text = "Add";
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.tonsLabel.AutoSize = true;
+            this.tonsLabel.Location = new System.Drawing.Point(235, 116);
+            this.tonsLabel.Name = "tonsLabel";
+            this.tonsLabel.Size = new System.Drawing.Size(35, 17);
+            this.tonsLabel.TabIndex = 8;
+            this.tonsLabel.Text = "tons";
             // 
-            // cancelButton
+            // maximumWeightNumeric
             // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cancelButton.Location = new System.Drawing.Point(12, 176);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(96, 35);
-            this.cancelButton.TabIndex = 3;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // nameTextBox
-            // 
-            this.nameTextBox.Location = new System.Drawing.Point(150, 30);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(120, 22);
-            this.nameTextBox.TabIndex = 1;
-            // 
-            // stacksPerRowNumeric
-            // 
-            this.stacksPerRowNumeric.Location = new System.Drawing.Point(150, 58);
-            this.stacksPerRowNumeric.Maximum = new decimal(new int[] {
-            20,
+            this.maximumWeightNumeric.Increment = new decimal(new int[] {
+            50,
             0,
             0,
             0});
-            this.stacksPerRowNumeric.Minimum = new decimal(new int[] {
-            1,
+            this.maximumWeightNumeric.Location = new System.Drawing.Point(150, 114);
+            this.maximumWeightNumeric.Maximum = new decimal(new int[] {
+            50000,
             0,
             0,
             0});
-            this.stacksPerRowNumeric.Name = "stacksPerRowNumeric";
-            this.stacksPerRowNumeric.Size = new System.Drawing.Size(120, 22);
-            this.stacksPerRowNumeric.TabIndex = 2;
-            this.stacksPerRowNumeric.Value = new decimal(new int[] {
-            1,
+            this.maximumWeightNumeric.Minimum = new decimal(new int[] {
+            50,
             0,
             0,
             0});
+            this.maximumWeightNumeric.Name = "maximumWeightNumeric";
+            this.maximumWeightNumeric.Size = new System.Drawing.Size(79, 22);
+            this.maximumWeightNumeric.TabIndex = 7;
+            this.maximumWeightNumeric.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // maximumWeightLabel
+            // 
+            this.maximumWeightLabel.AutoSize = true;
+            this.maximumWeightLabel.Location = new System.Drawing.Point(34, 116);
+            this.maximumWeightLabel.Name = "maximumWeightLabel";
+            this.maximumWeightLabel.Size = new System.Drawing.Size(110, 17);
+            this.maximumWeightLabel.TabIndex = 6;
+            this.maximumWeightLabel.Text = "Maximum weight";
+            // 
+            // rowsPerShipLabel
+            // 
+            this.rowsPerShipLabel.AutoSize = true;
+            this.rowsPerShipLabel.Location = new System.Drawing.Point(92, 88);
+            this.rowsPerShipLabel.Name = "rowsPerShipLabel";
+            this.rowsPerShipLabel.Size = new System.Drawing.Size(52, 17);
+            this.rowsPerShipLabel.TabIndex = 5;
+            this.rowsPerShipLabel.Text = "Length";
+            this.rowsPerShipLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // stacksPerRowLabel
+            // 
+            this.stacksPerRowLabel.AutoSize = true;
+            this.stacksPerRowLabel.Location = new System.Drawing.Point(100, 60);
+            this.stacksPerRowLabel.Name = "stacksPerRowLabel";
+            this.stacksPerRowLabel.Size = new System.Drawing.Size(44, 17);
+            this.stacksPerRowLabel.TabIndex = 4;
+            this.stacksPerRowLabel.Text = "Width";
             // 
             // rowsPerShipNumeric
             // 
@@ -145,73 +157,62 @@
             this.rowsPerShipNumeric.Size = new System.Drawing.Size(120, 22);
             this.rowsPerShipNumeric.TabIndex = 3;
             this.rowsPerShipNumeric.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // stacksPerRowNumeric
+            // 
+            this.stacksPerRowNumeric.Location = new System.Drawing.Point(150, 58);
+            this.stacksPerRowNumeric.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.stacksPerRowNumeric.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            // 
-            // stacksPerRowLabel
-            // 
-            this.stacksPerRowLabel.AutoSize = true;
-            this.stacksPerRowLabel.Location = new System.Drawing.Point(43, 60);
-            this.stacksPerRowLabel.Name = "stacksPerRowLabel";
-            this.stacksPerRowLabel.Size = new System.Drawing.Size(101, 17);
-            this.stacksPerRowLabel.TabIndex = 4;
-            this.stacksPerRowLabel.Text = "Stacks per row";
-            // 
-            // rowsPerShipLabel
-            // 
-            this.rowsPerShipLabel.AutoSize = true;
-            this.rowsPerShipLabel.Location = new System.Drawing.Point(47, 88);
-            this.rowsPerShipLabel.Name = "rowsPerShipLabel";
-            this.rowsPerShipLabel.Size = new System.Drawing.Size(97, 17);
-            this.rowsPerShipLabel.TabIndex = 5;
-            this.rowsPerShipLabel.Text = "Rows per ship";
-            // 
-            // maximumWeightLabel
-            // 
-            this.maximumWeightLabel.AutoSize = true;
-            this.maximumWeightLabel.Location = new System.Drawing.Point(34, 116);
-            this.maximumWeightLabel.Name = "maximumWeightLabel";
-            this.maximumWeightLabel.Size = new System.Drawing.Size(110, 17);
-            this.maximumWeightLabel.TabIndex = 6;
-            this.maximumWeightLabel.Text = "Maximum weight";
-            // 
-            // maximumWeightNumeric
-            // 
-            this.maximumWeightNumeric.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.maximumWeightNumeric.Location = new System.Drawing.Point(150, 114);
-            this.maximumWeightNumeric.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.maximumWeightNumeric.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.maximumWeightNumeric.Name = "maximumWeightNumeric";
-            this.maximumWeightNumeric.Size = new System.Drawing.Size(79, 22);
-            this.maximumWeightNumeric.TabIndex = 7;
-            this.maximumWeightNumeric.Value = new decimal(new int[] {
-            50,
+            this.stacksPerRowNumeric.Name = "stacksPerRowNumeric";
+            this.stacksPerRowNumeric.Size = new System.Drawing.Size(120, 22);
+            this.stacksPerRowNumeric.TabIndex = 2;
+            this.stacksPerRowNumeric.Value = new decimal(new int[] {
+            5,
             0,
             0,
             0});
             // 
-            // tonsLabel
+            // nameTextBox
             // 
-            this.tonsLabel.AutoSize = true;
-            this.tonsLabel.Location = new System.Drawing.Point(235, 116);
-            this.tonsLabel.Name = "tonsLabel";
-            this.tonsLabel.Size = new System.Drawing.Size(35, 17);
-            this.tonsLabel.TabIndex = 8;
-            this.tonsLabel.Text = "tons";
+            this.nameTextBox.Location = new System.Drawing.Point(150, 30);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(120, 22);
+            this.nameTextBox.TabIndex = 1;
+            // 
+            // addButton
+            // 
+            this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.addButton.Location = new System.Drawing.Point(114, 176);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(242, 35);
+            this.addButton.TabIndex = 2;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cancelButton.Location = new System.Drawing.Point(12, 176);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(96, 35);
+            this.cancelButton.TabIndex = 3;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // NewShip
             // 
@@ -226,9 +227,9 @@
             this.Text = "New ship";
             this.propertiesGroupBox.ResumeLayout(false);
             this.propertiesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stacksPerRowNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rowsPerShipNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximumWeightNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rowsPerShipNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stacksPerRowNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
