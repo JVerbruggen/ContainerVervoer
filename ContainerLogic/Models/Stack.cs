@@ -20,24 +20,30 @@ namespace ContainerLogic.Models
         {
             bool canHoldWeight = true;
 
-            int shouldHold = container.TotalWeight;
+            //int shouldHold = container.TotalWeight;
 
-            for (int i = containers.Count - 1; i >= 0 && canHoldWeight; i--)
+            //for (int i = containers.Count - 1; i >= 0 && canHoldWeight; i--)
+            //{
+            //    IContainer c = containers[i];
+
+            //    // Currently cant stack a normal container if stack contains valuable container
+            //    canHoldWeight = c.CanHoldWeight(shouldHold);
+            //}
+
+            if(containers.Count > 0)
             {
-                IContainer c = containers[i];
+                IContainer bottomContainer = containers[0];
+                canHoldWeight = bottomContainer.CanHoldWeight(TotalWeight() - bottomContainer.TotalWeight);
 
-                //if(shouldHold <= c.MaxHoldWeight)
-                //{
-                //    shouldHold += c.TotalWeight;
-                //}
-                //else
-                //{
-                //    canHoldWeight = false;
-                //}
-
-                canHoldWeight = c.CanHoldWeight(shouldHold);
+                if(container is ValuableContainer)
+                {
+                    if(containers[Containers.Count - 1] is ValuableContainer)
+                    {
+                        canHoldWeight = false;
+                    }
+                }
             }
-
+            
             return canHoldWeight;
         }
 
@@ -59,6 +65,16 @@ namespace ContainerLogic.Models
                 totalWeight += c.TotalWeight;
             }
             return totalWeight;
+        }
+
+        public bool IsBetterFitThan(Stack s)
+        {
+            bool better = true;
+            if (s != null && s.TotalWeight() < this.TotalWeight())
+            {
+                better = false;
+            }
+            return better;
         }
     }
 }

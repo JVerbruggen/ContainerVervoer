@@ -37,7 +37,7 @@ namespace ContainerVervoerWFA
             Ship ship;
             if(selected == -1)
             {
-                ship = repository.NewShip("testShip", 5, 5, 500000);
+                ship = repository.NewShip("testShip", 5, 5, 50000000);
                 AddShip(ship);
             }
             else

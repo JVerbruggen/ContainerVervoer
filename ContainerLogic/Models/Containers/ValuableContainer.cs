@@ -18,7 +18,7 @@
 
         public Stack GetPosition(Ship ship)
         {
-            Row row = ship.GetNextRow();
+            Row row = ship.GetNextRow(this);
             double weightDistribution = ship.GetWeightDistribution();
             Stack stack = row.GetNextStack(weightDistribution, this);
 

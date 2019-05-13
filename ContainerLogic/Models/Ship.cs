@@ -101,7 +101,7 @@ namespace ContainerLogic.Models
             return newRows;
         }
 
-        public Row GetNextRow()
+        public Row GetNextRow(IContainer toHold)
         {
             Row row = null;
             foreach (Row r in rows)
@@ -112,7 +112,11 @@ namespace ContainerLogic.Models
                 }
                 else if (r.TotalWeight() < row.TotalWeight())
                 {
-                    row = r;
+                    double weightDistribution = GetWeightDistribution();
+                    if(r.GetNextStack(weightDistribution, toHold) != null)
+                    {
+                        row = r;
+                    }
                 }
             }
             return row;

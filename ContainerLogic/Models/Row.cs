@@ -39,7 +39,7 @@ namespace ContainerLogic.Models
 
         public void Reset()
         {
-            foreach(Stack s in stacks)
+            foreach (Stack s in stacks)
             {
                 s.Reset();
             }
@@ -127,19 +127,6 @@ namespace ContainerLogic.Models
 
             int leftRightWeight = leftWeight + rightWeight;
 
-            //int rowWeight = TotalWeight();
-            //double distribution;
-            //if (leftRightWeight != 0)
-            //{
-            //    distribution = (double)leftWeight / (double) leftRightWeight * 2 - 1;
-            //}
-            //else
-            //{
-            //    distribution = 0;
-            //}
-
-            //distribution = Double.Parse(distribution.ToString("0.000000"));
-
             return leftWeight - rightWeight;
         }
 
@@ -161,22 +148,16 @@ namespace ContainerLogic.Models
 
         private Stack GetNextStackEven(double weightDistribution, IContainer toHold)
         {
-            Stack stack = null;
+            Stack rightStack = null;
+            Stack leftStack = null;
             if (weightDistribution >= 0)
             {
                 for (int i = 0; i < pivot; i++)
                 {
-                    Stack s = stacks[i]; // SAME (dry???)
-                    if (s.CanHoldWeight(toHold))
+                    Stack s = stacks[i];
+                    if (s.CanHoldWeight(toHold) && s.IsBetterFitThan(leftStack))
                     {
-                        if (stack == null)
-                        {
-                            stack = s;
-                        }
-                        else if (s.TotalWeight() < stack.TotalWeight())
-                        {
-                            stack = s;
-                        }
+                        leftStack = s;
                     }
                 }
             }
@@ -184,63 +165,82 @@ namespace ContainerLogic.Models
             {
                 for (int i = pivot; i < stacks.Count; i++)
                 {
-                    Stack s = stacks[i]; // SAME
-                    if (s.CanHoldWeight(toHold))
+                    Stack s = stacks[i];
+                    if (s.CanHoldWeight(toHold) && s.IsBetterFitThan(rightStack))
                     {
-                        if (stack == null)
-                        {
-                            stack = s;
-                        }
-                        else if (s.TotalWeight() < stack.TotalWeight())
-                        {
-                            stack = s;
-                        }
+                        rightStack = s;
                     }
                 }
             }
-            return stack;
+            return rightStack;
+        }
+
+        private Stack GetNextLeftStack(IContainer toHold)
+        {
+            Stack leftStack = null;
+            for (int i = pivot; i >= 0; i--)
+            {
+                Stack s = stacks[i];
+                if (s.CanHoldWeight(toHold) && s.IsBetterFitThan(leftStack))
+                {
+                    leftStack = s;
+                }
+            }
+            return leftStack;
+        }
+
+        private Stack GetNextRightStack(IContainer toHold)
+        {
+            Stack rightStack = null;
+            for (int i = pivot; i < stacks.Count; i++)
+            {
+                Stack s = stacks[i];
+                if (s.CanHoldWeight(toHold) && s.IsBetterFitThan(rightStack))
+                {
+                    rightStack = s;
+                }
+            }
+            return rightStack;
         }
 
         private Stack GetNextStackUneven(double weightDistribution, IContainer toHold)
         {
-            Stack stack = null;
-            if (weightDistribution < 0)
+            Stack finalStack = null;
+            Stack rightStack = GetNextRightStack(toHold);
+            Stack leftStack = GetNextLeftStack(toHold);
+
+            if (weightDistribution <= 0 || rightStack == null)
             {
-                for (int i = pivot; i >= 0; i--) // the i<=pivot is the only different thing from the even method (dry????)
-                {
-                    Stack s = stacks[i]; // SAME (dry???)
-                    if (s.CanHoldWeight(toHold))
-                    {
-                        if (stack == null)
-                        {
-                            stack = s;
-                        }
-                        else if (s.TotalWeight() < stack.TotalWeight())
-                        {
-                            stack = s;
-                        }
-                    }
-                }
+                finalStack = leftStack;
             }
-            else
+            else if (weightDistribution > 0 || leftStack == null)
             {
-                for (int i = pivot; i < stacks.Count; i++)
-                {
-                    Stack s = stacks[i]; // SAME
-                    if (s.CanHoldWeight(toHold))
-                    {
-                        if (stack == null)
-                        {
-                            stack = s;
-                        }
-                        else if (s.TotalWeight() < stack.TotalWeight())
-                        {
-                            stack = s;
-                        }
-                    }
-                }
+                finalStack = rightStack;
             }
-            return stack;
+
+            //if (weightDistribution < 0)
+            //{
+            //    for (int i = pivot; i >= 0; i--)
+            //    {
+            //        Stack s = stacks[i];
+            //        if (s.CanHoldWeight(toHold) && s.IsBetterThan(leftStack))
+            //        {
+            //            leftStack = s;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    for (int i = pivot; i < stacks.Count; i++)
+            //    {
+            //        Stack s = stacks[i];
+            //        if (s.CanHoldWeight(toHold) && s.IsBetterThan(rightStack))
+            //        {
+            //            rightStack = s;
+            //        }
+            //    }
+            //}
+            return finalStack;
         }
     }
 }
