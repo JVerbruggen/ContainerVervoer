@@ -29,5 +29,28 @@
         {
             return false;
         }
+
+        public bool CanBeHeld(Ship ship)
+        {
+            bool canBeHeld = false;
+            for (int i = 0; i < ship.Rows.Count && !canBeHeld; i++)
+            {
+                Row row = ship.Rows[i];
+                for (int j = 0; j < row.Stacks.Count && !canBeHeld; j++)
+                {
+                    Stack stack = row.Stacks[j];
+
+                    if(stack.Containers.Count > 0 && stack.Containers[0] is ValuableContainer)
+                    {
+                        canBeHeld = false;
+                    }
+                    else
+                    {
+                        canBeHeld = stack.CanHoldWeight(this);
+                    }
+                }
+            }
+            return canBeHeld;
+        }
     }
 }

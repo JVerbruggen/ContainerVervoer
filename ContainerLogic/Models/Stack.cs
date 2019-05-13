@@ -30,20 +30,42 @@ namespace ContainerLogic.Models
             //    canHoldWeight = c.CanHoldWeight(shouldHold);
             //}
 
-            if(containers.Count > 0)
+            if (containers.Count > 0)
             {
                 IContainer bottomContainer = containers[0];
-                canHoldWeight = bottomContainer.CanHoldWeight(TotalWeight() - bottomContainer.TotalWeight);
-
-                if(container is ValuableContainer)
+                int shouldHold = TotalWeight() - bottomContainer.TotalWeight;
+                if(containers.Count > 1)
                 {
-                    if(containers[Containers.Count - 1] is ValuableContainer)
+                    canHoldWeight = bottomContainer.CanHoldWeight(shouldHold);
+                }
+
+                IContainer c = containers[Containers.Count - 1];
+
+                if (c is ValuableContainer)
+                {
+                    if (container is ValuableContainer)
+                    {
+                        canHoldWeight = false;
+                    }
+                    else if (container is Container)
+                    {
+                        if(container.TotalWeight <= c.MaxHoldWeight)
+                        {
+                            canHoldWeight = true;
+                        }
+                    }
+                }
+
+
+                if (container is ValuableContainer)
+                {
+                    if (containers[Containers.Count - 1] is ValuableContainer)
                     {
                         canHoldWeight = false;
                     }
                 }
             }
-            
+
             return canHoldWeight;
         }
 
@@ -60,7 +82,7 @@ namespace ContainerLogic.Models
         public int TotalWeight()
         {
             int totalWeight = 0;
-            foreach(IContainer c in containers)
+            foreach (IContainer c in containers)
             {
                 totalWeight += c.TotalWeight;
             }

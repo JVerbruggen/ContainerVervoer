@@ -35,5 +35,18 @@ namespace ContainerLogic.Models
         {
             return weight <= MaxHoldWeight;
         }
+
+        public bool CanBeHeld(Ship ship)
+        {
+            bool canHold = false;
+            Row row = ship.Rows[0];
+            for (int j = 0; j < row.Stacks.Count && !canHold; j++)
+            {
+                Stack stack = row.Stacks[j];
+
+                canHold = stack.CanHoldWeight(this);
+            }
+            return canHold;
+        }
     }
 }

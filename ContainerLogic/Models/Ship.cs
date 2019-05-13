@@ -141,17 +141,18 @@ namespace ContainerLogic.Models
 
             if (CanAddWeight(container)) // Add check if can add cooled and valuable, not only weight
             {
-                bool canHold = false;
-                for(int i = 0; i < rows.Count && !canHold; i++)
-                {
-                    Row row = rows[i];
-                    for(int j = 0; j < row.Stacks.Count && !canHold; j++)
-                    {
-                        Stack stack = row.Stacks[j];
+                bool canHold = container.CanBeHeld(this);
 
-                        canHold = stack.CanHoldWeight(container);
-                    }
-                }
+                //for(int i = 0; i < rows.Count && !canHold; i++)
+                //{
+                //    Row row = rows[i];
+                //    for(int j = 0; j < row.Stacks.Count && !canHold; j++)
+                //    {
+                //        Stack stack = row.Stacks[j];
+
+                //        canHold = stack.CanHoldWeight(container);
+                //    }
+                //}
                 if (canHold)
                 {
                     containers.Add(container);

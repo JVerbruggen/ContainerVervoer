@@ -319,8 +319,8 @@ namespace ContainerVervoerWFA
 
         private void AddContainerButton_Click(object sender, EventArgs e)
         {
-            bool valuable = valuableCheckBox.Checked;
-            bool cooled = cooledCheckBox.Checked;
+            bool valuable = valuableRadioButton.Checked;
+            bool cooled = cooledRadioButton.Checked;
             int weight = (int)containerWeightNumeric.Value;
 
             //if (!cooled)

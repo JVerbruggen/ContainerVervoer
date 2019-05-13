@@ -9,5 +9,7 @@
         int TotalWeight { get; }
         Stack GetPosition(Ship ship);
         bool CanHoldWeight(int weight);
+
+        bool CanBeHeld(Ship ship);
     }
 }

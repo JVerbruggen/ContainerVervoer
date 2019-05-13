@@ -29,5 +29,21 @@
         {
             return shouldHold <= MaxHoldWeight;
         }
+
+        public bool CanBeHeld(Ship ship)
+        {
+            bool canHold = false;
+            for (int i = 0; i < ship.Rows.Count && !canHold; i++)
+            {
+                Row row = ship.Rows[i];
+                for (int j = 0; j < row.Stacks.Count && !canHold; j++)
+                {
+                    Stack stack = row.Stacks[j];
+
+                    canHold = stack.CanHoldWeight(this);
+                }
+            }
+            return canHold;
+        }
     }
 }
