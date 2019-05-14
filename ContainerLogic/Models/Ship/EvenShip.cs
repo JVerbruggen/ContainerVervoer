@@ -5,13 +5,13 @@ using System.Text;
 
 namespace ContainerLogic.Models
 {
-    public class Ship
+    public class EvenShip : IShip
     {
-        private List<Row> rows;
+        private List<IRow> rows;
         private List<IContainer> containers;
         private int pivot;
 
-        public IReadOnlyList<Row> Rows => rows;
+        public IReadOnlyList<IRow> Rows => rows;
         public IReadOnlyList<IContainer> Containers => containers;
 
         public string Name { get; private set; }
@@ -19,14 +19,14 @@ namespace ContainerLogic.Models
         public int Length { get; private set; }
         public int Width { get; private set; }
 
-        public Ship(string name, int length, int width, int maxWeight, List<IContainer> containers)
+        public EvenShip(string name, int length, int width, int maxWeight, List<IContainer> containers)
         {
             this.containers = containers;
 
             Init(name, length, width, maxWeight);
         }
 
-        public Ship(string name, int length, int width, int maxWeight)
+        public EvenShip(string name, int length, int width, int maxWeight)
         {
             Init(name, length, width, maxWeight);
         }
@@ -74,7 +74,7 @@ namespace ContainerLogic.Models
             if (rows.Count > 0)
             {
                 int count = 0;
-                foreach (Row row in rows)
+                foreach (IRow row in rows)
                 {
                     weightDistribution += row.GetWeightDistribution();
                     count++;
@@ -87,24 +87,24 @@ namespace ContainerLogic.Models
             return weightDistribution;
         }
 
-        private List<Row> GetNewRows(int length, int width)
+        private List<IRow> GetNewRows(int length, int width)
         {
-            List<Row> newRows = new List<Row>();
+            List<IRow> newRows = new List<IRow>();
             if (length > 0 && length <= 20)
             {
                 for (int i = 0; i < length; i++)
                 {
-                    Row row = new Row(width);
+                    IRow row = new EvenRow(width);
                     newRows.Add(row);
                 }
             }
             return newRows;
         }
 
-        public Row GetNextRow(IContainer toHold)
+        public IRow GetNextRow(IContainer toHold)
         {
-            Row row = null;
-            foreach (Row r in rows)
+            IRow row = null;
+            foreach (IRow r in rows)
             {
                 if (row == null)
                 {
@@ -165,7 +165,7 @@ namespace ContainerLogic.Models
 
         public void Reset()
         {
-            foreach (Row r in rows)
+            foreach (IRow r in rows)
             {
                 r.Reset();
             }

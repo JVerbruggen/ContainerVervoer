@@ -13,7 +13,7 @@ namespace ContainerVervoerWFA
 {
     partial class NewShip : Form
     {
-        public Ship Ship { get; private set; }
+        public UnevenShip Ship { get; private set; }
 
         public NewShip()
         {
@@ -47,7 +47,7 @@ namespace ContainerVervoerWFA
                 int rowsPerShip = (int)rowsPerShipNumeric.Value;
                 int maximumWeight = (int)maximumWeightNumeric.Value * 1000;
 
-                Ship = new Ship(name, stacksPerRow, rowsPerShip, maximumWeight);
+                Ship = new UnevenShip(name, stacksPerRow, rowsPerShip, maximumWeight);
 
                 this.Close();
             }

@@ -16,9 +16,9 @@
             MaxHoldWeight = 120000;
         }
 
-        public Stack GetPosition(Ship ship)
+        public Stack GetPosition(IShip ship)
         {
-            Row row = ship.GetNextRow(this);
+            IRow row = ship.GetNextRow(this);
             double weightDistribution = ship.GetWeightDistribution();
             Stack stack = row.GetNextStack(weightDistribution, this);
 
@@ -30,12 +30,12 @@
             return false;
         }
 
-        public bool CanBeHeld(Ship ship)
+        public bool CanBeHeld(IShip ship)
         {
             bool canBeHeld = false;
             for (int i = 0; i < ship.Rows.Count && !canBeHeld; i++)
             {
-                Row row = ship.Rows[i];
+                IRow row = ship.Rows[i];
                 for (int j = 0; j < row.Stacks.Count && !canBeHeld; j++)
                 {
                     Stack stack = row.Stacks[j];

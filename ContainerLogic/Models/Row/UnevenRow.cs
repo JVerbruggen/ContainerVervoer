@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ContainerLogic.Models
 {
-    public class Row
+    public class UnevenRow : IRow
     {
         private int pivot;
 
         private List<Stack> stacks;
         public IReadOnlyList<Stack> Stacks => stacks;
 
-        public Row(int length)
+        public UnevenRow(int length)
         {
             Load(length);
         }
@@ -67,14 +67,6 @@ namespace ContainerLogic.Models
             int pivot;
             double pivotDouble = Stacks.Count / 2;
             pivot = (int)pivotDouble;
-            //if (pivotDouble % 1 != 0) // even
-            //{
-            //    pivot = ((int)pivotDouble) - 1;
-            //}
-            //else // uneven
-            //{
-            //    pivot = (int)pivotDouble;
-            //}
             return pivot;
         }
 
@@ -83,25 +75,12 @@ namespace ContainerLogic.Models
             int rightWeight = 0;
             int stacksCount = Stacks.Count;
 
-            if (stacksCount % 2 == 0) // Is even
+            for (int i = pivot + 1; i < stacksCount; i++)
             {
-                for (int i = pivot; i < pivot; i++)
-                {
-                    Stack s = stacks[i];
-                    int j = i + 1;
+                Stack s = stacks[i];
+                int j = i + 1;
 
-                    rightWeight += s.TotalWeight();
-                }
-            }
-            else
-            {
-                for (int i = pivot + 1; i < stacksCount; i++)
-                {
-                    Stack s = stacks[i];
-                    int j = i + 1;
-
-                    rightWeight += s.TotalWeight();
-                }
+                rightWeight += s.TotalWeight();
             }
 
             return rightWeight;
@@ -128,51 +107,6 @@ namespace ContainerLogic.Models
             int leftRightWeight = leftWeight + rightWeight;
 
             return leftWeight - rightWeight;
-        }
-
-        public Stack GetNextStack(double weightDistribution, IContainer toHold)
-        {
-            Stack stack;
-
-            if (stacks.Count % 2 == 0) // even
-            {
-                stack = GetNextStackEven(weightDistribution, toHold);
-            }
-            else
-            {
-                stack = GetNextStackUneven(weightDistribution, toHold);
-            }
-
-            return stack;
-        }
-
-        private Stack GetNextStackEven(double weightDistribution, IContainer toHold)
-        {
-            Stack rightStack = null;
-            Stack leftStack = null;
-            if (weightDistribution >= 0)
-            {
-                for (int i = 0; i < pivot; i++)
-                {
-                    Stack s = stacks[i];
-                    if (s.CanHoldWeight(toHold) && s.IsBetterFitThan(leftStack))
-                    {
-                        leftStack = s;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = pivot; i < stacks.Count; i++)
-                {
-                    Stack s = stacks[i];
-                    if (s.CanHoldWeight(toHold) && s.IsBetterFitThan(rightStack))
-                    {
-                        rightStack = s;
-                    }
-                }
-            }
-            return rightStack;
         }
 
         private Stack GetNextLeftStack(IContainer toHold)
@@ -203,7 +137,7 @@ namespace ContainerLogic.Models
             return rightStack;
         }
 
-        private Stack GetNextStackUneven(double weightDistribution, IContainer toHold)
+        public Stack GetNextStack(double weightDistribution, IContainer toHold)
         {
             Stack finalStack = null;
             Stack rightStack = GetNextRightStack(toHold);
@@ -218,28 +152,6 @@ namespace ContainerLogic.Models
                 finalStack = rightStack;
             }
 
-            //if (weightDistribution < 0)
-            //{
-            //    for (int i = pivot; i >= 0; i--)
-            //    {
-            //        Stack s = stacks[i];
-            //        if (s.CanHoldWeight(toHold) && s.IsBetterThan(leftStack))
-            //        {
-            //            leftStack = s;
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int i = pivot; i < stacks.Count; i++)
-            //    {
-            //        Stack s = stacks[i];
-            //        if (s.CanHoldWeight(toHold) && s.IsBetterThan(rightStack))
-            //        {
-            //            rightStack = s;
-            //        }
-            //    }
-            //}
             return finalStack;
         }
     }

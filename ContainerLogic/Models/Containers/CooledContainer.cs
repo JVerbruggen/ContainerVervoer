@@ -22,9 +22,9 @@ namespace ContainerLogic.Models
             MaxHoldWeight = 120000;
         }
 
-        public Stack GetPosition(Ship ship)
+        public Stack GetPosition(IShip ship)
         {
-            Row row = ship.Rows[0];
+            IRow row = ship.Rows[0];
             double weightDistribution = ship.GetWeightDistribution();
             Stack stack = row.GetNextStack(weightDistribution, this);
 
@@ -36,10 +36,10 @@ namespace ContainerLogic.Models
             return weight <= MaxHoldWeight;
         }
 
-        public bool CanBeHeld(Ship ship)
+        public bool CanBeHeld(IShip ship)
         {
             bool canHold = false;
-            Row row = ship.Rows[0];
+            IRow row = ship.Rows[0];
             for (int j = 0; j < row.Stacks.Count && !canHold; j++)
             {
                 Stack stack = row.Stacks[j];

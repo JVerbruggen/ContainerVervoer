@@ -22,11 +22,11 @@ namespace ContainerVervoerWFA
             repository = new ShipRepository();
         }
 
-        private Ship NewShip()
+        private IShip NewShip()
         {
             NewShip newShip = new NewShip();
             newShip.ShowDialog();
-            Ship ship = newShip.Ship;
+            IShip ship = newShip.Ship;
 
             return ship;
         }
@@ -34,10 +34,10 @@ namespace ContainerVervoerWFA
         private void SelectButton_Click(object sender, EventArgs e)
         {
             int selected = shipBox.SelectedIndex;
-            Ship ship;
+            IShip ship;
             if(selected == -1)
             {
-                ship = repository.NewShip("testShip", 5, 5, 50000000);
+                ship = repository.NewUnevenShip("testShip", 5, 5, 50000000);
                 AddShip(ship);
             }
             else
@@ -48,20 +48,20 @@ namespace ContainerVervoerWFA
             shipOverviewForm.ShowDialog();
         }
 
-        private void AddShip(Ship ship)
+        private void AddShip(IShip ship)
         {
             repository.AddShip(ship);
             AddShipVisually(ship);
         }
 
-        private void AddShipVisually(Ship ship)
+        private void AddShipVisually(IShip ship)
         {
             shipBox.Items.Add($"{ship.Name} ({ship.Width}x{ship.Length}, {ship.MaxWeight} kg)");
         }
 
         private void AddNewButton_Click(object sender, EventArgs e)
         {
-            Ship ship = NewShip();
+            IShip ship = NewShip();
 
             if(ship != null)
             {

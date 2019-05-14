@@ -20,16 +20,6 @@ namespace ContainerLogic.Models
         {
             bool canHoldWeight = true;
 
-            //int shouldHold = container.TotalWeight;
-
-            //for (int i = containers.Count - 1; i >= 0 && canHoldWeight; i--)
-            //{
-            //    IContainer c = containers[i];
-
-            //    // Currently cant stack a normal container if stack contains valuable container
-            //    canHoldWeight = c.CanHoldWeight(shouldHold);
-            //}
-
             if (containers.Count > 0)
             {
                 IContainer bottomContainer = containers[0];
@@ -43,23 +33,27 @@ namespace ContainerLogic.Models
 
                 if (c is ValuableContainer)
                 {
-                    if (container is ValuableContainer)
-                    {
-                        canHoldWeight = false;
-                    }
-                    else if (container is Container)
-                    {
-                        if(container.TotalWeight <= c.MaxHoldWeight)
-                        {
-                            canHoldWeight = true;
-                        }
-                    }
+                    canHoldWeight = container.CanHoldWeight(container.TotalWeight);
+
+                    //if (container is ValuableContainer)
+                    //{
+                    //    canHoldWeight = false;
+                    //}
+                    //else if (container is Container)
+                    //{
+                    //    if(container.TotalWeight <= c.MaxHoldWeight)
+                    //    {
+                    //        canHoldWeight = true;
+                    //    }
+                    //}
                 }
 
 
                 if (container is ValuableContainer)
                 {
-                    if (containers[Containers.Count - 1] is ValuableContainer)
+                    IContainer topContainer = containers[Containers.Count - 1];
+
+                    if (topContainer is ValuableContainer)
                     {
                         canHoldWeight = false;
                     }

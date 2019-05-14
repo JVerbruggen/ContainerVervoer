@@ -7,9 +7,9 @@
         int MaxHoldWeight { get; }
         int MaxWeight { get; }
         int TotalWeight { get; }
-        Stack GetPosition(Ship ship);
+        Stack GetPosition(IShip ship);
         bool CanHoldWeight(int weight);
 
-        bool CanBeHeld(Ship ship);
+        bool CanBeHeld(IShip ship);
     }
 }

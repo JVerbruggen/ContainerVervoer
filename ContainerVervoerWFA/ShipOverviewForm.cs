@@ -20,14 +20,14 @@ namespace ContainerVervoerWFA
         private int maxX;
         private int maxY;
 
-        private Ship ship;
+        private IShip ship;
         private List<Button> buttons;
         private List<Button> containerStackButtons;
 
         private Stack shownStack;
         private ContainerLogic.Models.IContainer shownContainer;
 
-        public ShipOverviewForm(Ship ship)
+        public ShipOverviewForm(IShip ship)
         {
             InitializeComponent();
 
@@ -120,7 +120,7 @@ namespace ContainerVervoerWFA
             shipWeightLabel.Text = $"{ship.GetTotalWeight()}/{ship.MaxWeight} kg";
         }
 
-        public void RefreshStackButtons(Ship ship, List<Button> buttons)
+        public void RefreshStackButtons(IShip ship, List<Button> buttons)
         {
             int rows = ship.Length;
             int columns = ship.Width;
@@ -166,7 +166,7 @@ namespace ContainerVervoerWFA
 
             for(int i = ship.Rows.Count - 1; i >= 0; i--)
             {
-                Row row = ship.Rows[i];
+                IRow row = ship.Rows[i];
                 rowWeights += row.GetWeightDistribution() + " ";
             }
 
@@ -174,7 +174,7 @@ namespace ContainerVervoerWFA
 
         }
 
-        public void PlaceStackButtons(Ship ship, List<Button> buttons)
+        public void PlaceStackButtons(IShip ship, List<Button> buttons)
         {
             RemoveButtons(buttons);
 
