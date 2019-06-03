@@ -8,7 +8,7 @@ namespace ContainerLogic.Models
 
     public class UnevenShip : BaseShip
     {
-        public UnevenShip(string name, int length, int width, int maxWeight) : base(name, length, width, maxWeight)
+        public UnevenShip() : base()
         {
 
         }

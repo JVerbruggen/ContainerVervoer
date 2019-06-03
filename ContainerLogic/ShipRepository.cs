@@ -20,20 +20,36 @@ namespace ContainerLogic
             this.ships = new List<IShip>();
         }
 
-        public IShip NewUnevenShip(string name, int length, int width, int maxWeight)
+        public UnevenShip NewUnevenShip(string name, int length, int width, int maxWeight)
         {
-            UnevenShip ship = new UnevenShip(name, length, width, maxWeight);
+            UnevenShip ship = new UnevenShip();
+            bool init = ship.Init(name, length, width, maxWeight);
 
-            ships.Add(ship);
+            if (init)
+            {
+                ships.Add(ship);
+            }
+            else
+            {
+                ship = null;
+            }
 
             return ship;
         }
 
-        public IShip NewEvenShip(string name, int length, int width, int maxWeight)
+        public EvenShip NewEvenShip(string name, int length, int width, int maxWeight)
         {
-            EvenShip ship = new EvenShip(name, length, width, maxWeight);
+            EvenShip ship = new EvenShip();
+            bool init = ship.Init(name, length, width, maxWeight);
 
-            ships.Add(ship);
+            if (init)
+            {
+                ships.Add(ship);
+            }
+            else
+            {
+                ship = null;
+            }
 
             return ship;
         }

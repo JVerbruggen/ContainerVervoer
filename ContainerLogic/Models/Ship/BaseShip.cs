@@ -19,23 +19,45 @@ namespace ContainerLogic.Models
         public int MaxWeight { get; private set; }
         public int Length { get; private set; }
         public int Width { get; private set; }
+        public int MinLength { get; private set; }
+        public int MaxLength { get; private set; }
+        public int MinWidth { get; private set; }
+        public int MaxWidth { get; private set; }
 
-        public BaseShip(string name, int length, int width, int maxWeight)
+        public BaseShip()
         {
-            Init(name, length, width, maxWeight);
+            MinWidth = 2;
+            MaxWidth = 11;
+            MinLength = 4;
+            MaxLength = 16;
         }
 
-        public void Init(string name, int length, int width, int maxWeight)
+        private bool ValidDimensions(int length, int width)
         {
-            MaxWeight = maxWeight;
-            Length = length;
-            Width = width;
-            Name = name;
+            bool validLength = length >= MinLength && length <= MaxLength;
+            bool validWidth = width >= MinWidth && width <= MaxWidth;
+            return validLength && validWidth;
+        }
 
-            rows = GetNewRows(length, width);
-            containers = new List<IContainer>();
+        public bool Init(string name, int length, int width, int maxWeight)
+        {
+            bool initialized = false;
 
-            LoadAllContainers();
+            if(ValidDimensions(length, width))
+            {
+                MaxWeight = maxWeight;
+                Length = length;
+                Width = width;
+                Name = name;
+
+                rows = GetNewRows(length, width);
+                containers = new List<IContainer>();
+
+                LoadAllContainers();
+                initialized = true;
+            }
+
+            return initialized;
         }
 
         public int GetTotalWeight()

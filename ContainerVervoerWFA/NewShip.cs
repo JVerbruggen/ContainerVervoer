@@ -47,14 +47,24 @@ namespace ContainerVervoerWFA
                 int length = (int)lengthNumeric.Value;
                 int maximumWeight = (int)maximumWeightNumeric.Value * 1000;
 
+                bool init = false;
+
                 if(width % 2 == 0)
                 {
-                    Ship = new EvenShip(name, length, width, maximumWeight);
+                    Ship = new EvenShip();
+                    init = Ship.Init(name, length, width, maximumWeight);
                 }
                 else
                 {
-                    Ship = new UnevenShip(name, length, width, maximumWeight);
+                    Ship = new UnevenShip();
+                    init = Ship.Init(name, length, width, maximumWeight);
                 }
+
+                if (!init)
+                {
+                    MessageBox.Show("Dimensions incorrect");
+                }
+
                 this.Close();
             }
         }

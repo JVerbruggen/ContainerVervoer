@@ -7,7 +7,7 @@ namespace ContainerLogic.Models
 {
     public class EvenShip : BaseShip
     {
-        public EvenShip(string name, int length, int width, int maxWeight) : base(name, length, width, maxWeight)
+        public EvenShip() : base()
         {
 
         }

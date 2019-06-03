@@ -25,39 +25,13 @@ namespace ContainerLogic.Models
                 IContainer bottomContainer = containers[0];
                 int stackWeight = TotalWeight();
                 int shouldHold = stackWeight - bottomContainer.TotalWeight + container.TotalWeight;
-                if(containers.Count > 1)
+
+                canHoldWeight = bottomContainer.CanHoldWeight(shouldHold);
+
+                if (canHoldWeight)
                 {
-                    canHoldWeight = bottomContainer.CanHoldWeight(shouldHold);
-                }
-
-                IContainer c = containers[Containers.Count - 1];
-
-                if (c is ValuableContainer)
-                {
-                    canHoldWeight = container.CanHoldWeight(container.TotalWeight);
-
-                    //if (container is ValuableContainer)
-                    //{
-                    //    canHoldWeight = false;
-                    //}
-                    //else if (container is Container)
-                    //{
-                    //    if(container.TotalWeight <= c.MaxHoldWeight)
-                    //    {
-                    //        canHoldWeight = true;
-                    //    }
-                    //}
-                }
-
-
-                if (container is ValuableContainer)
-                {
-                    IContainer topContainer = containers[Containers.Count - 1];
-
-                    if (topContainer is ValuableContainer)
-                    {
-                        canHoldWeight = false;
-                    }
+                    IContainer top = containers[Containers.Count - 1];
+                    canHoldWeight = top.CanHoldWeight(container.TotalWeight);
                 }
             }
 

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerVervoerLibrary", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerLogic", "ContainerLogic\ContainerLogic.csproj", "{999AF427-241F-4063-ADE7-66A472F045D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerLogicTests", "ContainerLogicTests\ContainerLogicTests.csproj", "{1103A8F8-B252-4751-8B09-C45C3338A57C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{999AF427-241F-4063-ADE7-66A472F045D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{999AF427-241F-4063-ADE7-66A472F045D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{999AF427-241F-4063-ADE7-66A472F045D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1103A8F8-B252-4751-8B09-C45C3338A57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1103A8F8-B252-4751-8B09-C45C3338A57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1103A8F8-B252-4751-8B09-C45C3338A57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1103A8F8-B252-4751-8B09-C45C3338A57C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
