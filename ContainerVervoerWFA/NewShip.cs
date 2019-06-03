@@ -13,7 +13,7 @@ namespace ContainerVervoerWFA
 {
     partial class NewShip : Form
     {
-        public UnevenShip Ship { get; private set; }
+        public IShip Ship { get; private set; }
 
         public NewShip()
         {
@@ -25,7 +25,7 @@ namespace ContainerVervoerWFA
         {
             bool validated = true;
 
-            if(nameTextBox.Text == "" || stacksPerRowNumeric.Value <= 0 || rowsPerShipNumeric.Value <= 0 
+            if(nameTextBox.Text == "" || lengthNumeric.Value <= 0 || widthNumeric.Value <= 0 
                 || maximumWeightNumeric.Value <= 0)
             {
                 validated = false;
@@ -43,12 +43,18 @@ namespace ContainerVervoerWFA
             else
             {
                 string name = nameTextBox.Text;
-                int stacksPerRow = (int)stacksPerRowNumeric.Value;
-                int rowsPerShip = (int)rowsPerShipNumeric.Value;
+                int width = (int)widthNumeric.Value;
+                int length = (int)lengthNumeric.Value;
                 int maximumWeight = (int)maximumWeightNumeric.Value * 1000;
 
-                Ship = new UnevenShip(name, stacksPerRow, rowsPerShip, maximumWeight);
-
+                if(width % 2 == 0)
+                {
+                    Ship = new EvenShip(name, length, width, maximumWeight);
+                }
+                else
+                {
+                    Ship = new UnevenShip(name, length, width, maximumWeight);
+                }
                 this.Close();
             }
         }

@@ -23,7 +23,8 @@ namespace ContainerLogic.Models
             if (containers.Count > 0)
             {
                 IContainer bottomContainer = containers[0];
-                int shouldHold = TotalWeight() - bottomContainer.TotalWeight;
+                int stackWeight = TotalWeight();
+                int shouldHold = stackWeight - bottomContainer.TotalWeight + container.TotalWeight;
                 if(containers.Count > 1)
                 {
                     canHoldWeight = bottomContainer.CanHoldWeight(shouldHold);

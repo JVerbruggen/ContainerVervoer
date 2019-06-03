@@ -33,17 +33,17 @@
             this.tonsLabel = new System.Windows.Forms.Label();
             this.maximumWeightNumeric = new System.Windows.Forms.NumericUpDown();
             this.maximumWeightLabel = new System.Windows.Forms.Label();
-            this.rowsPerShipLabel = new System.Windows.Forms.Label();
-            this.stacksPerRowLabel = new System.Windows.Forms.Label();
-            this.rowsPerShipNumeric = new System.Windows.Forms.NumericUpDown();
-            this.stacksPerRowNumeric = new System.Windows.Forms.NumericUpDown();
+            this.lengthLabel = new System.Windows.Forms.Label();
+            this.widthLabel = new System.Windows.Forms.Label();
+            this.lengthNumeric = new System.Windows.Forms.NumericUpDown();
+            this.widthNumeric = new System.Windows.Forms.NumericUpDown();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.addButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.propertiesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maximumWeightNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rowsPerShipNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stacksPerRowNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lengthNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.widthNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -63,10 +63,10 @@
             this.propertiesGroupBox.Controls.Add(this.tonsLabel);
             this.propertiesGroupBox.Controls.Add(this.maximumWeightNumeric);
             this.propertiesGroupBox.Controls.Add(this.maximumWeightLabel);
-            this.propertiesGroupBox.Controls.Add(this.rowsPerShipLabel);
-            this.propertiesGroupBox.Controls.Add(this.stacksPerRowLabel);
-            this.propertiesGroupBox.Controls.Add(this.rowsPerShipNumeric);
-            this.propertiesGroupBox.Controls.Add(this.stacksPerRowNumeric);
+            this.propertiesGroupBox.Controls.Add(this.lengthLabel);
+            this.propertiesGroupBox.Controls.Add(this.widthLabel);
+            this.propertiesGroupBox.Controls.Add(this.lengthNumeric);
+            this.propertiesGroupBox.Controls.Add(this.widthNumeric);
             this.propertiesGroupBox.Controls.Add(this.nameTextBox);
             this.propertiesGroupBox.Controls.Add(this.nameLabel);
             this.propertiesGroupBox.Location = new System.Drawing.Point(12, 12);
@@ -121,64 +121,64 @@
             this.maximumWeightLabel.TabIndex = 6;
             this.maximumWeightLabel.Text = "Maximum weight";
             // 
-            // rowsPerShipLabel
+            // lengthLabel
             // 
-            this.rowsPerShipLabel.AutoSize = true;
-            this.rowsPerShipLabel.Location = new System.Drawing.Point(92, 88);
-            this.rowsPerShipLabel.Name = "rowsPerShipLabel";
-            this.rowsPerShipLabel.Size = new System.Drawing.Size(52, 17);
-            this.rowsPerShipLabel.TabIndex = 5;
-            this.rowsPerShipLabel.Text = "Length";
-            this.rowsPerShipLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lengthLabel.AutoSize = true;
+            this.lengthLabel.Location = new System.Drawing.Point(92, 88);
+            this.lengthLabel.Name = "lengthLabel";
+            this.lengthLabel.Size = new System.Drawing.Size(52, 17);
+            this.lengthLabel.TabIndex = 5;
+            this.lengthLabel.Text = "Length";
+            this.lengthLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // stacksPerRowLabel
+            // widthLabel
             // 
-            this.stacksPerRowLabel.AutoSize = true;
-            this.stacksPerRowLabel.Location = new System.Drawing.Point(100, 60);
-            this.stacksPerRowLabel.Name = "stacksPerRowLabel";
-            this.stacksPerRowLabel.Size = new System.Drawing.Size(44, 17);
-            this.stacksPerRowLabel.TabIndex = 4;
-            this.stacksPerRowLabel.Text = "Width";
+            this.widthLabel.AutoSize = true;
+            this.widthLabel.Location = new System.Drawing.Point(100, 60);
+            this.widthLabel.Name = "widthLabel";
+            this.widthLabel.Size = new System.Drawing.Size(44, 17);
+            this.widthLabel.TabIndex = 4;
+            this.widthLabel.Text = "Width";
             // 
-            // rowsPerShipNumeric
+            // lengthNumeric
             // 
-            this.rowsPerShipNumeric.Location = new System.Drawing.Point(150, 86);
-            this.rowsPerShipNumeric.Maximum = new decimal(new int[] {
+            this.lengthNumeric.Location = new System.Drawing.Point(150, 86);
+            this.lengthNumeric.Maximum = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.rowsPerShipNumeric.Minimum = new decimal(new int[] {
+            this.lengthNumeric.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.rowsPerShipNumeric.Name = "rowsPerShipNumeric";
-            this.rowsPerShipNumeric.Size = new System.Drawing.Size(120, 22);
-            this.rowsPerShipNumeric.TabIndex = 3;
-            this.rowsPerShipNumeric.Value = new decimal(new int[] {
+            this.lengthNumeric.Name = "lengthNumeric";
+            this.lengthNumeric.Size = new System.Drawing.Size(120, 22);
+            this.lengthNumeric.TabIndex = 3;
+            this.lengthNumeric.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
             // 
-            // stacksPerRowNumeric
+            // widthNumeric
             // 
-            this.stacksPerRowNumeric.Location = new System.Drawing.Point(150, 58);
-            this.stacksPerRowNumeric.Maximum = new decimal(new int[] {
+            this.widthNumeric.Location = new System.Drawing.Point(150, 58);
+            this.widthNumeric.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.stacksPerRowNumeric.Minimum = new decimal(new int[] {
+            this.widthNumeric.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.stacksPerRowNumeric.Name = "stacksPerRowNumeric";
-            this.stacksPerRowNumeric.Size = new System.Drawing.Size(120, 22);
-            this.stacksPerRowNumeric.TabIndex = 2;
-            this.stacksPerRowNumeric.Value = new decimal(new int[] {
+            this.widthNumeric.Name = "widthNumeric";
+            this.widthNumeric.Size = new System.Drawing.Size(120, 22);
+            this.widthNumeric.TabIndex = 2;
+            this.widthNumeric.Value = new decimal(new int[] {
             5,
             0,
             0,
@@ -228,8 +228,8 @@
             this.propertiesGroupBox.ResumeLayout(false);
             this.propertiesGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maximumWeightNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rowsPerShipNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stacksPerRowNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lengthNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.widthNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -238,10 +238,10 @@
 
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.GroupBox propertiesGroupBox;
-        private System.Windows.Forms.Label rowsPerShipLabel;
-        private System.Windows.Forms.Label stacksPerRowLabel;
-        private System.Windows.Forms.NumericUpDown rowsPerShipNumeric;
-        private System.Windows.Forms.NumericUpDown stacksPerRowNumeric;
+        private System.Windows.Forms.Label lengthLabel;
+        private System.Windows.Forms.Label widthLabel;
+        private System.Windows.Forms.NumericUpDown lengthNumeric;
+        private System.Windows.Forms.NumericUpDown widthNumeric;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button cancelButton;

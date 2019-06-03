@@ -47,18 +47,20 @@
     <Compile Include="Models\Containers\Container.cs" />
     <Compile Include="Models\Containers\CooledContainer.cs" />
     <Compile Include="Models\Containers\IContainer.cs" />
+    <Compile Include="Models\Row\BaseRow.cs" />
+    <Compile Include="Models\Ship\BaseShip.cs" />
     <Compile Include="Models\Ship\IShip.cs" />
     <Compile Include="Models\Row\IRow.cs" />
     <Compile Include="Models\Row\UnevenRow.cs" />
     <Compile Include="Models\Ship\EvenShip.cs" />
     <Compile Include="Models\Ship\UnevenShip.cs" />
+    <Compile Include="Models\SortingHelper.cs" />
     <Compile Include="Models\Stack.cs" />
+    <Compile Include="Models\StackHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShipRepository.cs" />
     <Compile Include="Models\Row\EvenRow.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

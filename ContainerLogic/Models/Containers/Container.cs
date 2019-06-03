@@ -41,6 +41,10 @@
                     Stack stack = row.Stacks[j];
 
                     canHold = stack.CanHoldWeight(this);
+                    if (canHold)
+                    {
+                        stack.CanHoldWeight(this);
+                    }
                 }
             }
             return canHold;
