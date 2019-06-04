@@ -7,7 +7,7 @@ namespace ContainerLogic.Models
 {
     public class EvenShip : BaseShip
     {
-        public EvenShip() : base()
+        public EvenShip(string name, int length, int width, int maxWeight) : base(name, length, width, maxWeight)
         {
 
         }
@@ -15,7 +15,7 @@ namespace ContainerLogic.Models
         protected override List<IRow> GetNewRows(int length, int width)
         {
             List<IRow> newRows = new List<IRow>();
-            if (length > 0 && length <= 20)
+            if (ValidDimensions(length, width))
             {
                 for (int i = 0; i < length; i++)
                 {

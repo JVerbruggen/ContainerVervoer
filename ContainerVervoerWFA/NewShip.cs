@@ -51,13 +51,13 @@ namespace ContainerVervoerWFA
 
                 if(width % 2 == 0)
                 {
-                    Ship = new EvenShip();
-                    init = Ship.Init(name, length, width, maximumWeight);
+                    Ship = new EvenShip(name, length, width, maximumWeight);
+                    init = Ship.MaxWeight != -1;
                 }
                 else
                 {
-                    Ship = new UnevenShip();
-                    init = Ship.Init(name, length, width, maximumWeight);
+                    Ship = new UnevenShip(name, length, width, maximumWeight);
+                    init = Ship.MaxWeight != -1;
                 }
 
                 if (!init)

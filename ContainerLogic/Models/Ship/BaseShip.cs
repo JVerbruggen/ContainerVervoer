@@ -8,56 +8,50 @@ namespace ContainerLogic.Models
 {
     public abstract class BaseShip : IShip
     {
-        private List<IRow> rows;
-        private List<IContainer> containers;
-        private int pivot;
-
-        public IReadOnlyList<IRow> Rows => rows;
-        public IReadOnlyList<IContainer> Containers => containers;
+        public static readonly int MinLength = 4;
+        public static readonly int MaxLength = 16;
+        public static readonly int MinWidth = 2;
+        public static readonly int MaxWidth = 11;
 
         public string Name { get; private set; }
         public int MaxWeight { get; private set; }
         public int Length { get; private set; }
         public int Width { get; private set; }
-        public int MinLength { get; private set; }
-        public int MaxLength { get; private set; }
-        public int MinWidth { get; private set; }
-        public int MaxWidth { get; private set; }
 
-        public BaseShip()
+        public IReadOnlyList<IRow> Rows => rows;
+        public IReadOnlyList<IContainer> Containers => containers;
+
+        private List<IRow> rows;
+        private List<IContainer> containers;
+        private int pivot;
+
+        public BaseShip(string name, int length, int width, int maxWeight)
         {
-            MinWidth = 2;
-            MaxWidth = 11;
-            MinLength = 4;
-            MaxLength = 16;
-        }
-
-        private bool ValidDimensions(int length, int width)
-        {
-            bool validLength = length >= MinLength && length <= MaxLength;
-            bool validWidth = width >= MinWidth && width <= MaxWidth;
-            return validLength && validWidth;
-        }
-
-        public bool Init(string name, int length, int width, int maxWeight)
-        {
-            bool initialized = false;
-
-            if(ValidDimensions(length, width))
+            if (ValidDimensions(length, width))
             {
                 MaxWeight = maxWeight;
                 Length = length;
                 Width = width;
                 Name = name;
 
-                rows = GetNewRows(length, width);
+                rows = GetNewRows(Length, Width);
                 containers = new List<IContainer>();
 
                 LoadAllContainers();
-                initialized = true;
             }
+            else
+            {
+                MaxWeight = -1;
+                Length = -1;
+                Width = -1;
+            }
+        }
 
-            return initialized;
+        protected bool ValidDimensions(int length, int width)
+        {
+            bool validLength = length >= MinLength && length <= MaxLength;
+            bool validWidth = width >= MinWidth && width <= MaxWidth;
+            return validLength && validWidth;
         }
 
         public int GetTotalWeight()
@@ -187,14 +181,7 @@ namespace ContainerLogic.Models
 
                     Stack stack = c.GetPosition(this);
 
-                    if (stack != null)
-                    {
-                        stack.Add(c);
-                    }
-                    else
-                    {
-                        loaded = false;
-                    }
+                    stack.Add(c);
                 }
             }
 

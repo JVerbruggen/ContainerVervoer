@@ -1,36 +1,18 @@
 ﻿namespace ContainerLogic.Models
 {
-    public class ValuableContainer : IContainer
+    public class ValuableContainer : BaseContainer
     {
-        public int EmptyWeight { get; }
-        public int MaxWeight { get; }
-        public int MaxHoldWeight { get; }
-        public int LoadWeight { get; }
-        public int TotalWeight { get => EmptyWeight + LoadWeight; }
-
-        public ValuableContainer(int loadWeight)
+        public ValuableContainer(int loadWeight) : base(loadWeight)
         {
-            LoadWeight = loadWeight;
-            EmptyWeight = 4000;
-            MaxWeight = 30000;
-            MaxHoldWeight = 120000;
+
         }
 
-        public Stack GetPosition(IShip ship)
-        {
-            IRow row = ship.GetNextRow(this);
-            double weightDistribution = ship.GetWeightDistribution();
-            Stack stack = row.GetNextStack(weightDistribution, this);
-
-            return stack;
-        }
-
-        public bool CanHoldWeight(int weight)
+        public override bool CanHoldWeight(int weight)
         {
             return false;
         }
 
-        public bool CanBeHeld(IShip ship)
+        public override bool CanBeHeld(IShip ship)
         {
             bool canBeHeld = false;
             for (int i = 0; i < ship.Rows.Count && !canBeHeld; i++)
@@ -40,7 +22,7 @@
                 {
                     Stack stack = row.Stacks[j];
 
-                    if(stack.Containers.Count > 0 && stack.Containers[0] is ValuableContainer)
+                    if (stack.Containers.Count > 0 && stack.Containers[0] is ValuableContainer)
                     {
                         canBeHeld = false;
                     }

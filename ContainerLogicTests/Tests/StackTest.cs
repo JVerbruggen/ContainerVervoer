@@ -2,7 +2,7 @@
 using ContainerLogic.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ContainerLogicTests
+namespace ContainerLogicTests.Tests
 {
     [TestClass]
     public class StackTest
@@ -33,7 +33,7 @@ namespace ContainerLogicTests
             IContainer firstContainer = new Container(1000);
             int toHold = firstContainer.MaxHoldWeight + 1;
 
-            IContainer secondContainer = new Container(toHold);
+            IContainer secondContainer = new SuperContainer(toHold);
             stack.Add(firstContainer);
 
             //Act

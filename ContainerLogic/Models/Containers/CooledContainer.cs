@@ -6,23 +6,14 @@ using System.Threading.Tasks;
 
 namespace ContainerLogic.Models
 {
-    public class CooledContainer : IContainer
+    public class CooledContainer : BaseContainer
     {
-        public int EmptyWeight { get; }
-        public int MaxWeight { get; }
-        public int MaxHoldWeight { get; }
-        public int LoadWeight { get; }
-        public int TotalWeight { get => EmptyWeight + LoadWeight; }
-
-        public CooledContainer(int loadWeight)
+        public CooledContainer(int loadWeight): base(loadWeight)
         {
-            LoadWeight = loadWeight;
-            EmptyWeight = 4000;
-            MaxWeight = 30000;
-            MaxHoldWeight = 120000;
+
         }
 
-        public Stack GetPosition(IShip ship)
+        public override Stack GetPosition(IShip ship)
         {
             IRow row = ship.Rows[0];
             double weightDistribution = ship.GetWeightDistribution();
@@ -31,12 +22,7 @@ namespace ContainerLogic.Models
             return stack;
         }
 
-        public bool CanHoldWeight(int weight)
-        {
-            return weight <= MaxHoldWeight;
-        }
-
-        public bool CanBeHeld(IShip ship)
+        public override bool CanBeHeld(IShip ship)
         {
             bool canHold = false;
             IRow row = ship.Rows[0];

@@ -22,8 +22,8 @@ namespace ContainerLogic
 
         public UnevenShip NewUnevenShip(string name, int length, int width, int maxWeight)
         {
-            UnevenShip ship = new UnevenShip();
-            bool init = ship.Init(name, length, width, maxWeight);
+            UnevenShip ship = new UnevenShip(name, length, width, maxWeight);
+            bool init = ship.MaxWeight != -1;
 
             if (init)
             {
@@ -39,8 +39,8 @@ namespace ContainerLogic
 
         public EvenShip NewEvenShip(string name, int length, int width, int maxWeight)
         {
-            EvenShip ship = new EvenShip();
-            bool init = ship.Init(name, length, width, maxWeight);
+            EvenShip ship = new EvenShip(name, length, width, maxWeight);
+            bool init = ship.MaxWeight != -1;
 
             if (init)
             {

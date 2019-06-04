@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorRepository.cs" />
+    <Compile Include="Models\Containers\BaseContainer.cs" />
     <Compile Include="Models\Containers\ValuableContainer.cs" />
     <Compile Include="Models\Containers\Container.cs" />
     <Compile Include="Models\Containers\CooledContainer.cs" />

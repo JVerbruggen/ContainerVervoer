@@ -3,7 +3,7 @@ using ContainerLogic;
 using ContainerLogic.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ContainerLogicTests
+namespace ContainerLogicTests.Tests
 {
     [TestClass]
     public class BaseShipTest
@@ -12,10 +12,10 @@ namespace ContainerLogicTests
         public void InitializeSuccess()
         {
             //Arrange
-            EvenShip ship = new EvenShip();
+            EvenShip ship = new EvenShip("", 5, 5, 10000);
 
             //Act
-            bool init = ship.Init("", 5, 5, 10000);
+            bool init = ship.MaxWeight != -1;
 
             //Assert
             Assert.IsTrue(init);
@@ -25,11 +25,11 @@ namespace ContainerLogicTests
         public void InitializeLowLength()
         {
             //Arrange
-            EvenShip ship = new EvenShip();
-            int minLength = ship.MinLength;
+            int minLength = EvenShip.MinLength;
+            EvenShip ship = new EvenShip("", minLength - 1, 5, 10000);
 
             //Act
-            bool init = ship.Init("", minLength - 1, 5, 10000);
+            bool init = ship.MaxWeight != -1;
 
             //Assert
             Assert.IsFalse(init);
@@ -39,11 +39,11 @@ namespace ContainerLogicTests
         public void InitializeHighLength()
         {
             //Arrange
-            EvenShip ship = new EvenShip();
-            int maxLength = ship.MaxLength;
+            int maxLength = EvenShip.MaxLength;
+            EvenShip ship = new EvenShip("", maxLength + 1, 5, 10000);
 
             //Act
-            bool init = ship.Init("", maxLength + 1, 5, 10000);
+            bool init = ship.MaxWeight != -1;
 
             //Assert
             Assert.IsFalse(init);
@@ -53,11 +53,11 @@ namespace ContainerLogicTests
         public void InitializeLowWith()
         {
             //Arrange
-            EvenShip ship = new EvenShip();
-            int minWidth = ship.MinWidth;
+            int minWidth = EvenShip.MinWidth;
+            EvenShip ship = new EvenShip("", 5, minWidth - 1, 10000);
 
             //Act
-            bool init = ship.Init("", 5, minWidth - 1, 10000);
+            bool init = ship.MaxWeight != -1;
 
             //Assert
             Assert.IsFalse(init);
@@ -67,11 +67,11 @@ namespace ContainerLogicTests
         public void InitializeHighWidth()
         {
             //Arrange
-            EvenShip ship = new EvenShip();
-            int maxWidth = ship.MaxWidth;
+            int maxWidth = EvenShip.MaxWidth;
+            EvenShip ship = new EvenShip("", 5, maxWidth + 1, 10000);
 
             //Act
-            bool init = ship.Init("", 5, maxWidth + 1, 10000);
+            bool init = ship.MaxWeight != -1;
 
             //Assert
             Assert.IsFalse(init);

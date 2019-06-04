@@ -49,9 +49,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseShipTest.cs" />
+    <Compile Include="Tests\BaseShipTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StackTest.cs" />
+    <Compile Include="Tests\RowTest.cs" />
+    <Compile Include="Tests\StackTest.cs" />
+    <Compile Include="Models\SuperContainer.cs" />
+    <Compile Include="Tests\Containers\ContainerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
