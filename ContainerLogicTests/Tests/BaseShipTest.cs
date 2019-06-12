@@ -267,14 +267,10 @@ namespace ContainerLogicTests.Tests
             ship.Add(container);
             ship.LoadAllContainers();
 
-            //Act Assert
-            if (expectedStack.Containers.Count == 0)
-            {
-                Assert.Fail();
-            }
-
+            //Act
             ship.Reset();
 
+            //Assert
             Assert.AreEqual(0, expectedStack.Containers.Count);
         }
 
